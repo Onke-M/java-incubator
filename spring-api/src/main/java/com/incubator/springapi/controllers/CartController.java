@@ -40,10 +40,10 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addToCart(@RequestBody CartItem cartItem) {
-        LOGGER.info("Adding book={} to cart", cartItem.getBook().getBookName());
+    public ResponseEntity<?> addToCart(@RequestBody CartItem cartItem, @RequestParam Integer userID) {
+        LOGGER.info("Adding book={} to cart", cartItem);
 
-        final CartItem newCartItem = cartService.addToCart(cartItem);
+        final CartItem newCartItem = cartService.addToCart(cartItem, userID);
 
         LOGGER.trace("Book Added To Cart");
         return new ResponseEntity<>(newCartItem, HttpStatus.CREATED);

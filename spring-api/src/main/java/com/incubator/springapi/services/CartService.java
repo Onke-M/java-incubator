@@ -1,9 +1,8 @@
 package com.incubator.springapi.services;
 
-import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.Cart;
 import com.incubator.springapi.entities.CartItem;
-import com.incubator.springapi.repositories.BookRepository;
+import com.incubator.springapi.entities.User;
 import com.incubator.springapi.repositories.CartItemRepository;
 import com.incubator.springapi.repositories.CartRepository;
 import org.springframework.stereotype.Service;
@@ -15,10 +14,12 @@ import java.util.Optional;
 @Service
 public class CartService {
     private final CartItemRepository cartItemRepository;
+    private final UserService userService;
     private final CartRepository cartRepository;
 
-    public CartService(CartItemRepository cartItemRepository, CartRepository cartRepository){
+    public CartService(CartItemRepository cartItemRepository, UserService userService, CartRepository cartRepository){
         this.cartItemRepository = cartItemRepository;
+        this.userService = userService;
         this.cartRepository = cartRepository;
     }
 
@@ -31,12 +32,20 @@ public class CartService {
         return result;
     }
 
-    public CartItem addToCart(CartItem cartItem){
-        Optional<Cart> userCart = cartRepository.findById(cartItem.getCart().getCartID());
-        if(userCart.isPresent())
+    public CartItem addToCart(CartItem cartItem, Integer userID){
+        User user = userService.getUser(userID);
+        if(user!=null)
         {
-            cartItemRepository.save(cartItem);
+            Cart userCart = cartRepository.findByUser(user);
+            if(userCart!=null)
+            {
+                cartItem.setCart(userCart);
+                cartItemRepository.save(cartItem);
+
+                return cartItem;
+            }
         }
+
         return null;
     }
 }

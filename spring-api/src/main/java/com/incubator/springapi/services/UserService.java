@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,5 +23,14 @@ public class UserService {
         userIterable.forEach(result::add);
 
         return result;
+    }
+
+    public User getUser(Integer userID) {
+        User user = userRepository.findByUserID(userID);
+        if(user == null)
+        {
+            return null;
+        }
+        return user;
     }
 }

@@ -21,7 +21,14 @@ export class CartService {
 
   async GetCart(): Promise<any> {
     console.log('API CALL')
-    let httpCall = this.httpClient.get(`${API_URL}/books`)
+    let httpCall = this.httpClient.get(`${API_URL}/cart`)
+    let response = await lastValueFrom(httpCall)
+    return response
+  }
+
+  async AddToCart(cartItem:any, userID:number): Promise<any> {
+    console.log('API CALL')
+    let httpCall = this.httpClient.post(`${API_URL}/cart?userID=${userID}`, cartItem)
     let response = await lastValueFrom(httpCall)
     return response
   }

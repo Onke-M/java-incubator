@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BookCatalogService } from '../services/book-catalog.service';
 import { SnackbarService } from '../services/snackbar.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-book-catalog',
@@ -12,11 +13,14 @@ export class BookCatalogComponent implements OnInit {
 
 books:any[] = [];
 isLoading:boolean = false;
+cartItem:any = null;
+userID:number = 0;
 
-constructor(private httpClient: HttpClient, private bookCatalogService:BookCatalogService, private snackbarService:SnackbarService){}
+constructor(private httpClient: HttpClient, private bookCatalogService:BookCatalogService, private snackbarService:SnackbarService, private cartService:CartService){}
 
 async ngOnInit(){
 await this.getBooks();
+this.userID = 7
 }
 
 async getBooks() {
@@ -35,5 +39,15 @@ async getBooks() {
   console.log(this.books)
 }
 
+async addToCart(book:any){
+  this.cartItem = {
+  "cart": null,
+  "book": book,
+  "quantity": 3
+  }
+  console.log(this.cartItem)
+await this.cartService.AddToCart(this.cartItem, this.userID)
+
+}
 
 }
