@@ -36,4 +36,12 @@ export class CartPageComponent implements OnInit {
     console.log(this.cart)
   }
 
+  async checkout(){
+    await this.cart.forEach(item => {
+      this.cartService.Checkout(item)
+    })
+    this.snackbarService.setMessage('Cart checkout successful')
+    this.dialogRef.close();
+  }
+
 }

@@ -47,4 +47,15 @@ public class CartController {
         LOGGER.trace("Book Added To Cart");
         return new ResponseEntity<>(newCartItem, HttpStatus.CREATED);
     }
+
+    @PostMapping
+    @RequestMapping("/orderBook")
+    public ResponseEntity<?> orderBook(@RequestBody CartItem cartItem) {
+        LOGGER.info("Adding book={} to order", cartItem);
+
+        final Book orderedBook = cartService.orderBook(cartItem);
+
+        LOGGER.trace("Book Added To Order");
+        return new ResponseEntity<>(orderedBook, HttpStatus.CREATED);
+    }
 }

@@ -11,11 +11,22 @@
         <mat-card-content>
           {{item.quantity}}
           <button mat-button mat-dialog-close tabindex="1"><mat-icon>delete</mat-icon></button>
+          <button mat-button mat-dialog-close tabindex="-1"><mat-icon>add_shopping_cart</mat-icon></button>
         </mat-card-content>
       </mat-card>
 </div>
 <div class="actions">
-<div class="checkout">Checkout</div>
+<div class="checkout">
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>Cart Summary</mat-card-title>
+          <mat-card-subtitle>Total</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="checkout()">Proceed to Checkout</button>
+        </mat-card-actions>
+      </mat-card>
+</div>
 </div>
 </div>
 

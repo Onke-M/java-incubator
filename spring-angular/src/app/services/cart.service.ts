@@ -32,4 +32,11 @@ export class CartService {
     let response = await lastValueFrom(httpCall)
     return response
   }
+
+  async Checkout(cartItem:any): Promise<any> {
+    console.log('API CALL')
+    let httpCall = this.httpClient.post(`${API_URL}/cart/orderBook`, cartItem)
+    let response = await lastValueFrom(httpCall)
+    return response
+  }
 }

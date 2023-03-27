@@ -1,5 +1,6 @@
 package com.incubator.springapi.services;
 
+import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.Cart;
 import com.incubator.springapi.entities.CartItem;
 import com.incubator.springapi.entities.User;
@@ -9,17 +10,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CartService {
     private final CartItemRepository cartItemRepository;
     private final UserService userService;
+    private final BookService bookService;
     private final CartRepository cartRepository;
 
-    public CartService(CartItemRepository cartItemRepository, UserService userService, CartRepository cartRepository){
+    public CartService(CartItemRepository cartItemRepository, UserService userService, BookService bookService, CartRepository cartRepository){
         this.cartItemRepository = cartItemRepository;
         this.userService = userService;
+        this.bookService = bookService;
         this.cartRepository = cartRepository;
     }
 
@@ -60,6 +62,16 @@ public class CartService {
             }
         }
 
+        return null;
+    }
+
+    public Book orderBook(CartItem cartItem){
+        CartItem existingStock = cartItemRepository.findByCartItemID(cartItem.getCartItemID());
+        if(existingStock!=null){
+            Book orderedBook = bookService.updateBookQuantity(cartItem.getBook(), cartItem.getQuantity());
+            cartItemRepository.delete(cartItem);
+            return orderedBook;
+        }
         return null;
     }
 }
