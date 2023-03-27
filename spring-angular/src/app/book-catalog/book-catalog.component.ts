@@ -20,7 +20,7 @@ constructor(private httpClient: HttpClient, private bookCatalogService:BookCatal
 
 async ngOnInit(){
 await this.getBooks();
-this.userID = 7
+this.userID = 3
 }
 
 async getBooks() {
@@ -48,6 +48,18 @@ async addToCart(book:any){
   await this.cartService.AddToCart(this.cartItem, this.userID)
   this.snackbarService.setMessage(`${book.bookName} added to cart`)
   this.snackbarService.openSnackBar()
+}
+
+truncateChar(text: string): string {
+  let charlimit = 23;
+  if(!text || text.length <= charlimit )
+  {
+      return text;
+  }
+
+let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
+let shortened = without_html.substring(0, charlimit) + "...";
+return shortened;
 }
 
 }

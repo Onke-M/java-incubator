@@ -13,6 +13,7 @@ export class CartPageComponent implements OnInit {
   isLoading:boolean = false;
   cart:any[] = [];
   userID:number = 0;
+  cartTotal:number = 0;
   
   constructor(private httpClient: HttpClient, private snackbarService:SnackbarService, private cartService:CartService, public dialogRef: MatDialogRef<CartPageComponent>,){}
 
@@ -26,6 +27,9 @@ export class CartPageComponent implements OnInit {
     await this.cartService.GetCart(userID).then(
       (res) => {
         this.cart = res;
+        this.cart.forEach(item => {
+          this.cartTotal = this.cartTotal + (item.book.price * item.quantity)
+        });
       },
       (response: HttpErrorResponse) => {
         if (response.status == 500) {
@@ -42,6 +46,18 @@ export class CartPageComponent implements OnInit {
     })
     this.snackbarService.setMessage('Cart checkout successful')
     this.dialogRef.close();
+  }
+
+  truncateChar(text: string): string {
+    let charlimit = 50;
+    if(!text || text.length <= charlimit )
+    {
+        return text;
+    }
+  
+  let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
+  let shortened = without_html.substring(0, charlimit) + "...";
+  return shortened;
   }
 
 }
