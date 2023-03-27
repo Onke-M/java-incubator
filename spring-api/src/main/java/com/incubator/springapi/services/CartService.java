@@ -32,6 +32,20 @@ public class CartService {
         return result;
     }
 
+    public List<CartItem> getUserCart(Integer userID) {
+        User user = userService.getUser(userID);
+        if(user!=null)
+        {
+            Cart userCart = cartRepository.findByUser(user);
+            if(userCart!=null)
+            {
+                List<CartItem> userCartItems = cartItemRepository.findByCart(userCart);
+                return userCartItems;
+            }
+        }
+        return null;
+    }
+
     public CartItem addToCart(CartItem cartItem, Integer userID){
         User user = userService.getUser(userID);
         if(user!=null)

@@ -43,11 +43,11 @@ async addToCart(book:any){
   this.cartItem = {
   "cart": null,
   "book": book,
-  "quantity": 3
+  "quantity": 1
   }
-  console.log(this.cartItem)
-await this.cartService.AddToCart(this.cartItem, this.userID)
-
+  await this.cartService.AddToCart(this.cartItem, this.userID)
+  this.snackbarService.setMessage(`${book.bookName} added to cart`)
+  this.snackbarService.openSnackBar()
 }
 
 }

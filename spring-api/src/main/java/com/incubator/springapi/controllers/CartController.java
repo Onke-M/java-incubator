@@ -25,10 +25,9 @@ public class CartController {
     }
 
     @GetMapping()
-//    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<List<CartItem>> getCart() {
-        LOGGER.info("Fetching all Books");
-        List<CartItem> cartItems = cartService.getCart();
+    public ResponseEntity<List<CartItem>> getUserCart(@RequestParam Integer userID) {
+        LOGGER.info("Fetching user's cart");
+        List<CartItem> cartItems = cartService.getUserCart(userID);
 
         if (!cartItems.isEmpty()) {
             LOGGER.trace("Found cart items");

@@ -19,9 +19,9 @@ export class CartService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async GetCart(): Promise<any> {
+  async GetCart(userID:number): Promise<any> {
     console.log('API CALL')
-    let httpCall = this.httpClient.get(`${API_URL}/cart`)
+    let httpCall = this.httpClient.get(`${API_URL}/cart?userID=${userID}`)
     let response = await lastValueFrom(httpCall)
     return response
   }

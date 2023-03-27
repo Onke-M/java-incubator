@@ -1,0 +1,19 @@
+.example-card {
+    max-width:100%;
+    margin-bottom: 8px;
+  }
+  .container {
+    display: flex; /* or inline-flex */
+  }
+
+  .container > *{
+    flex: 1;
+  }
+
+  .checkout{
+    position: sticky;
+    top: 0;
+    background-color: #666;
+    padding: 40px;
+    font-size: 25px;
+  }
