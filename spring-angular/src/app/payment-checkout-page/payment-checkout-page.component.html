@@ -1,1 +1,52 @@
-<p>payment-checkout-page works!</p>
+<div class="container">
+    <mat-card class="card-container">
+        <form [formGroup]="paymentDetails" class="mat-dialog-content">
+  
+            <!--Textarea for demo purposes-->
+            <div class="form">
+              <mat-form-field color="accent">
+                <input matInput #input  type="text" placeholder="Card Number" id="cardNumber" formControlName="cardNumber">
+              </mat-form-field>
+            </div>
+            <span *ngIf="paymentDetails.controls['cardNumber'].errors?.['required'] && paymentDetails.controls['cardNumber'].touched" style="color: #d32f2f;">Please enter valid name</span>
+      
+        
+            <!--Contains mat-hint for characters count and has maxLengt set-->
+            <div class="form">
+              <mat-form-field color="accent">
+                <input matInput min="1" #inputstate placeholder="Expiry Date"  type="number" id="expiryDate" formControlName="expiryDate" required >
+              </mat-form-field>
+            </div>
+            <span *ngIf="paymentDetails.controls['expiryDate'].errors?.['required'] && paymentDetails.controls['expiryDate'].touched" style="color: #d32f2f;">Please enter a valid price</span>
+      
+        
+            <div class="form">
+              <mat-form-field color="accent">
+                <input matInput min="1" placeholder="CVV Number" type="number" id="cvvNumber" formControlName="cvvNumber" #input>
+              </mat-form-field>
+            </div>
+            <span *ngIf="paymentDetails.controls['cvvNumber'].errors?.['required'] && paymentDetails.controls['cvvNumber'].touched" style="color: #d32f2f;">Please enter a valid quantity</span>
+          </form>
+          <mat-card-actions>
+            <button mat-raised-button color="primary"  >Add</button>
+            <button mat-raised-button tabindex="-1" color="accent">Cancel</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <div class="actions">
+    <div class="checkout">
+        <mat-card>
+            <mat-card-header>
+              <mat-card-title>Cart Summary</mat-card-title>
+              <mat-card-subtitle>Total: R5000.00</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-button color="primary">Proceed to Checkout</button>
+            </mat-card-actions>
+          </mat-card>
+    </div>
+    </div>
+    </div>
+    
+    
+    

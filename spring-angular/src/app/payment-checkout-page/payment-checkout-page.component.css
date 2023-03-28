@@ -1,0 +1,30 @@
+
+  .container {
+    display: flex;
+  }
+
+  .container > *{
+    flex: 1;
+  }
+
+  .card-container{
+        display: flex;
+        flex-direction: column;
+        min-width: 450px;
+        width: 100%;
+        min-height: auto;
+  }
+
+  .form {
+    display: flex;
+    padding-top: 6px;
+  }
+
+  .checkout{
+    position: sticky;
+    top: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    font-size: 25px;
+  }
