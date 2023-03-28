@@ -8,20 +8,28 @@ import { BookCatalogComponent } from './book-catalog/book-catalog.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DeliveryCheckoutPageComponent } from './delivery-checkout-page/delivery-checkout-page.component';
+import { PaymentCheckoutPageComponent } from './payment-checkout-page/payment-checkout-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookCatalogComponent,
     CartPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    CheckoutPageComponent,
+    DeliveryCheckoutPageComponent,
+    PaymentCheckoutPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

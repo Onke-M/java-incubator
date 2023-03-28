@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { SnackbarService } from '../services/snackbar.service';
 import { CartService } from '../services/cart.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
@@ -15,7 +16,7 @@ export class CartPageComponent implements OnInit {
   userID:number = 0;
   cartTotal:number = 0;
   
-  constructor(private httpClient: HttpClient, private snackbarService:SnackbarService, private cartService:CartService, public dialogRef: MatDialogRef<CartPageComponent>,){}
+  constructor(private httpClient: HttpClient, private snackbarService:SnackbarService, private cartService:CartService, public dialogRef: MatDialogRef<CartPageComponent>,private router: Router){}
 
   async ngOnInit(){
     this.userID = 3
@@ -41,11 +42,12 @@ export class CartPageComponent implements OnInit {
   }
 
   async checkout(){
-    await this.cart.forEach(item => {
-      this.cartService.Checkout(item)
-    })
+    // await this.cart.forEach(item => {
+    //   this.cartService.Checkout(item)
+    // })
     this.snackbarService.setMessage('Cart checkout successful')
     this.dialogRef.close();
+    this.router.navigate(['/checkout']);
   }
 
   truncateChar(text: string): string {
