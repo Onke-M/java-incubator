@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 const API_URL = environment.API_URL;
@@ -10,6 +10,7 @@ cartID:number;
 bookID:number;
 quantity:number
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,8 @@ export class CartService {
   cartItems:CartItem[] = []
   cart:any[] = [];
   cartTotal:number = 0;
+
+  public $address: Subject<any> = new Subject<any>();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -39,6 +42,14 @@ export class CartService {
 
   getCartTotal(){
     return this.cartTotal
+  }
+
+  setAddress(address:any){
+    this.$address = address
+  }
+
+  getAddress(){
+    return this.$address
   }
 
   async AddToCart(cartItem:any, userID:number): Promise<any> {

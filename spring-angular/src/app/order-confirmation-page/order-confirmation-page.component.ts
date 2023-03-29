@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -8,10 +9,43 @@ import { CartService } from '../services/cart.service';
 })
 export class OrderConfirmationPageComponent {
   cartTotal:number = 0;
-
-  constructor(private cartService: CartService){}
-
-  async ngOnInit(){
-    this.cartTotal = this.cartService.getCartTotal();
+  cart:any[]=[]
+  address:any = {
+    type:'Home',
+    street:'20 Muller Street',
+    suburb:'Buccleuch',
+    city:'Johannesburg',
+    code:'2191'
   }
+  constructor(private cartService: CartService, private router: Router){
+  }
+
+  async onInit(){
+    this.cartTotal = this.cartService.getCartTotal();
+    this.cart = this.cartService.getLocalCart()
+        this.cartService.$address.subscribe(address => {
+      this.address = address;
+    });
+  }
+
+  truncateChar(text: string): string {
+    let charlimit = 50;
+    if(!text || text.length <= charlimit )
+    {
+        return text;
+    }
+  
+  let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
+  let shortened = without_html.substring(0, charlimit) + "...";
+  return shortened;
+  }
+
+  async checkout(){
+    await this.cart.forEach(item => {
+      this.cartService.Checkout(item)
+    })
+    this.router.navigate(['']);
+  }
+  
 }
+

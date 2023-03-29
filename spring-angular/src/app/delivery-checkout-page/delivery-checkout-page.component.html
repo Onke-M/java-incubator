@@ -1,44 +1,23 @@
 <div class="container">
 <div class="cartItems">
-    <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>Home</mat-card-title>
-            <mat-card-subtitle>20 Muller Street South, Buccleuch, Johannesburg, 2191</mat-card-subtitle>
-            <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-            <button mat-button mat-dialog-close tabindex="1"><mat-icon>edit</mat-icon></button>
-            <button mat-button mat-dialog-close tabindex="-1"><mat-icon>delete</mat-icon></button>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>Work</mat-card-title>
-            <mat-card-subtitle>7 Melrose Boulevard, Melrose Arch, Johannesburg, 2076</mat-card-subtitle>
-            <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
+  <mat-radio-group>
+    <mat-card class="example-card" *ngFor="let address of addresses">
+      <mat-radio-button class="example-radio-button" [value]="address" (click)="getAddress(address)"></mat-radio-button>
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>
+            {{address.type}}
+          </mat-card-title>
+          <mat-card-subtitle>{{address.street}}, {{address.suburb}}, {{address.city}}, {{address.code}}</mat-card-subtitle>
+          <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
           <button mat-button mat-dialog-close tabindex="1"><mat-icon>edit</mat-icon></button>
           <button mat-button mat-dialog-close tabindex="-1"><mat-icon>delete</mat-icon></button>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>Other</mat-card-title>
-            <mat-card-subtitle>1080 Prospect Street, Hatfield, Pretoria, 0028</mat-card-subtitle>
-            <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-            <button mat-button mat-dialog-close tabindex="1"><mat-icon>edit</mat-icon></button>
-            <button mat-button mat-dialog-close tabindex="-1"><mat-icon>delete</mat-icon></button>
-        </mat-card-content>
-      </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </mat-radio-group>
 </div>
 <div class="actions">
 <div class="checkout">
@@ -48,7 +27,7 @@
           <mat-card-subtitle>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-raised-button color="primary" matStepperNext>Continue</button>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="selectedAddress == null">Continue</button>
         </mat-card-actions>
       </mat-card>
 </div>
