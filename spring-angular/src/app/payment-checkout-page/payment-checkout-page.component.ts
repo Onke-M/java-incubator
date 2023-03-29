@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-payment-checkout-page',
@@ -9,7 +10,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PaymentCheckoutPageComponent {
   paymentDetails!: FormGroup;
 
+  cartTotal:number = 0;
+
+  constructor(private cartService: CartService){}
+
   async ngOnInit(){
+    this.cartTotal = this.cartService.getCartTotal();
 
     this.paymentDetails = new FormGroup({
       cardNumber: new FormControl('', [Validators.required]),

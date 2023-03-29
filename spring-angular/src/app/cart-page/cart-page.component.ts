@@ -45,7 +45,7 @@ export class CartPageComponent implements OnInit {
     // await this.cart.forEach(item => {
     //   this.cartService.Checkout(item)
     // })
-    this.snackbarService.setMessage('Cart checkout successful')
+    this.cartService.setCartAndTotal(this.cart, this.cartTotal)
     this.dialogRef.close();
     this.router.navigate(['/checkout']);
   }

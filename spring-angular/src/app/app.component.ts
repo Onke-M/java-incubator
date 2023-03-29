@@ -14,9 +14,6 @@ export class AppComponent {
   constructor(public dialog: MatDialog, private snackBarService:SnackbarService){}
 
   openCart(){
-    this.dialog.open(CartPageComponent, {disableClose: true, height: '650px'}).afterClosed()
-    .subscribe(async () => {
-      this.snackBarService.openSnackBar()
-    });
+    this.dialog.open(CartPageComponent, {disableClose: true, height: '650px'});
   }
 }

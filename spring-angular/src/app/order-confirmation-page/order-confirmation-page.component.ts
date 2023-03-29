@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { CartService } from '../services/cart.service';
 
 @Component({
-  selector: 'app-delivery-checkout-page',
-  templateUrl: './delivery-checkout-page.component.html',
-  styleUrls: ['./delivery-checkout-page.component.css']
+  selector: 'app-order-confirmation-page',
+  templateUrl: './order-confirmation-page.component.html',
+  styleUrls: ['./order-confirmation-page.component.css']
 })
-export class DeliveryCheckoutPageComponent {
+export class OrderConfirmationPageComponent {
   cartTotal:number = 0;
 
   constructor(private cartService: CartService){}
@@ -14,5 +14,4 @@ export class DeliveryCheckoutPageComponent {
   async ngOnInit(){
     this.cartTotal = this.cartService.getCartTotal();
   }
-
 }

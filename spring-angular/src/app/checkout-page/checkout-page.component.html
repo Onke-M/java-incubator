@@ -3,16 +3,12 @@
         <ng-template matStepLabel>Delivery Information</ng-template>
         <app-delivery-checkout-page></app-delivery-checkout-page>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+    <mat-step>
       <ng-template matStepLabel>Payment Details</ng-template>
       <app-payment-checkout-page></app-payment-checkout-page>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Order Confirmation</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
+      <app-order-confirmation-page></app-order-confirmation-page>
     </mat-step>
   </mat-stepper>
