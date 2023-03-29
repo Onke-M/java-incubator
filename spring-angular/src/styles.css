@@ -1,3 +1,149 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
+.login-wrapper .login-form {
+    min-width: 100%;
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .login-full-width,
+  .btn-block {
+    width: 100%;
+  }
+  
+  .login-wrapper mat-card-header {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: 700;
+  }
+  
+  .login-wrapper mat-card-header mat-card-title {
+    font-size: 30px;
+    margin: 0;
+  }
+  
+  .login-wrapper .mat-card {
+    padding: 40px 70px 50px;
+  }
+  
+  .login-wrapper .mat-stroked-button {
+    border: 1px solid currentColor;
+    line-height: 54px;
+    background: #FFF7FA;
+  }
+  
+  .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 0.8375em 0;
+  }
+
+  .login-bg-img {
+    /* The image used */  
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+    background-attachment: fixed;
+    background-color: linear-gradient(0deg, var(--accentColor) 0, var(--mainDarkColor) 100%);
+  
+    min-height: 100vh;
+  }
+
+  .login-card {
+    width: 100%;
+    padding: 1.9rem 1.2rem;
+    text-align: center;
+    background: #2a2b38;
+    margin-top: 10%;
+    border-radius: 6px;
+  }
+  
+  .login-field {
+    margin-top: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+    background-color: #1f2029;
+    border-radius: 4px;
+    padding: .5em 1em;
+  }
+  
+  .login-input-icon {
+    height: 1em;
+    width: 1em;
+    fill: #ffeba7;
+  }
+  
+  .login-input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #d3d3d3;
+  }
+  
+  .login-input-viewbtn {
+    background: transparent;
+    border: none;
+  }
+  
+  .login-input-viewbtn:hover {
+    background: #dabd1b3f;
+    border-radius: 4px;
+    transition: all 0.3s ease 0s;
+  }
+  
+  .login-title {
+    margin-bottom: 1rem;
+    font-size: 2.5em;
+    font-weight: 800;
+    color: #f5f5f5;
+  }
+  
+  .login-btn {
+    margin: 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1em;
+    text-transform: uppercase;
+    padding: 0.6em 1.2em;
+    background-color: #ffeba7;
+    color: #5e6681;
+    box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
+    transition: all .3s ease-in-out;
+  }
+  
+  .login-btn-link {
+    color: #f5f5f5;
+    display: block;
+    font-size: .75em;
+    transition: color .3s ease-out;
+  }
+  
+  .login-field input:focus::placeholder {
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  
+  .login-btn:hover {
+    background-color: #5e6681;
+    color: #ffeba7;
+    box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+  }
+  
+  
+  .login-btn-link:hover {
+    color: #ffeba7;
+  }
+  
+  .login-hint-pass{
+    align-items: left;
+    text-align: left;
+  }
