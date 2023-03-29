@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 
@@ -7,7 +7,7 @@ import { CartService } from '../services/cart.service';
   templateUrl: './order-confirmation-page.component.html',
   styleUrls: ['./order-confirmation-page.component.css']
 })
-export class OrderConfirmationPageComponent {
+export class OrderConfirmationPageComponent implements OnInit{
   cartTotal:number = 0;
   cart:any[]=[]
   address:any = {
@@ -17,15 +17,15 @@ export class OrderConfirmationPageComponent {
     city:'Johannesburg',
     code:'2191'
   }
-  constructor(private cartService: CartService, private router: Router){
-  }
+  constructor(private cartService: CartService, private router: Router){}
 
-  async onInit(){
+  async ngOnInit(){
     this.cartTotal = this.cartService.getCartTotal();
     this.cart = this.cartService.getLocalCart()
         this.cartService.$address.subscribe(address => {
       this.address = address;
     });
+    console.log(this.cart)
   }
 
   truncateChar(text: string): string {
