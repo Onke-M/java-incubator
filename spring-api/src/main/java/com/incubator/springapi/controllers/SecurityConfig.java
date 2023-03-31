@@ -85,9 +85,11 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
 
         httpSecurity
                 .authorizeHttpRequests()
-                .antMatchers("/books").permitAll()
-                .antMatchers("/cart").permitAll()
+                .antMatchers("/role").hasRole("Admin")
+                .antMatchers("/token").permitAll()
                 .antMatchers("/users").permitAll()
+                .antMatchers("/cart").permitAll()
+                .antMatchers("/books").permitAll()
                 .and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> {
@@ -138,4 +140,3 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
 
 
 }
-
