@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DeliveryCheckoutPageComponent } from './delivery-checkout-page/delivery-checkout-page.component';
 import { PaymentCheckoutPageComponent } from './payment-checkout-page/payment-checkout-page.component';
 import { OrderConfirmationPageComponent } from './order-confirmation-page/order-confirmation-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { OrderConfirmationPageComponent } from './order-confirmation-page/order-
     CheckoutPageComponent,
     DeliveryCheckoutPageComponent,
     PaymentCheckoutPageComponent,
-    OrderConfirmationPageComponent
+    OrderConfirmationPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,

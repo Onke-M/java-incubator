@@ -19,7 +19,7 @@ export class CartPageComponent implements OnInit {
   constructor(private httpClient: HttpClient, private snackbarService:SnackbarService, private cartService:CartService, public dialogRef: MatDialogRef<CartPageComponent>,private router: Router){}
 
   async ngOnInit(){
-    this.userID = 3
+    this.userID = 2
     await this.getCart(this.userID);
     }
 
