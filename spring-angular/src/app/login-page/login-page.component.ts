@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -20,7 +21,8 @@ export class LoginPageComponent {
   constructor(
     public fb: FormBuilder,
     public router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,7 +35,7 @@ export class LoginPageComponent {
       email: loginForm.value.email,
       password: loginForm.value.password
     }
-
+    await this.authService.Login(credentials)
     console.log(credentials);
   }
 

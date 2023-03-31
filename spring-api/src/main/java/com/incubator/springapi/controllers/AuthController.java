@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-//@CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST})
+@RequestMapping("/token")
+@CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST})
 public class AuthController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -29,12 +30,12 @@ public class AuthController {
         this.jwtEncoder = jwtEncoder;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String loginToken(Authentication authentication) {
         return "Hello" + " " ;
     }
 
-    @PostMapping("/token")
+    @PostMapping()
     public String JWTToken(Authentication authentication) {
         LOGGER.info("Hitting Endpoint");
 
