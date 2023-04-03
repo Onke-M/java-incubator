@@ -60,7 +60,7 @@ async addToCart(book:any){
 }
 
 truncateChar(text: string): string {
-  let charlimit = 23;
+  let charlimit = 20;
   if(!text || text.length <= charlimit )
   {
       return text;
