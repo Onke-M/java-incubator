@@ -90,6 +90,7 @@ public class AuthController {
                         .expiresAt(now.plusSeconds(expiry))
                         .subject(user.getUsername())
                         .claim("role", scope)
+                        .id(user.getUserID().toString())
                         .build();
                 return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
