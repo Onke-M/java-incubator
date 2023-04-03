@@ -3,6 +3,7 @@
     margin-left: 40px;
     margin-right: 10px;
     margin-bottom: 10px;
+    background: #2a2b38;
   }
   .container {
     display: flex; /* or inline-flex */
@@ -12,6 +13,10 @@
     flex: 1;
   }
 
+  h2{
+    color: white;
+  }
+  
   .checkout{
     position: sticky;
     top: 0;

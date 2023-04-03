@@ -4,14 +4,14 @@
     <mat-card class="example-card" *ngFor="let item of cart">
         <mat-card-header>
           <mat-card-title-group>
-            <mat-card-title>{{truncateChar(item.book.bookName)}}</mat-card-title>
-            <mat-card-subtitle>{{item.book.price | currency:'ZAR':"symbol-narrow"}}</mat-card-subtitle>
+            <mat-card-title><h2>{{truncateChar(item.book.bookName)}}</h2></mat-card-title>
+            <mat-card-subtitle><h2>{{item.book.price | currency:'ZAR':"symbol-narrow"}}</h2></mat-card-subtitle>
             <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
           </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>
-          {{item.quantity}}
-          <button mat-button mat-dialog-close tabindex="1"><mat-icon>delete</mat-icon></button>
+          <h2>{{item.quantity}}<button mat-button mat-dialog-close tabindex="-1"><mat-icon class="example-icon">delete</mat-icon></button></h2>
+          
         </mat-card-content>
       </mat-card>
 </div>
@@ -31,13 +31,13 @@
 </div>
 <div class="actions">
 <div class="checkout">
-    <mat-card>
+    <mat-card style="background: #2a2b38;">
         <mat-card-header>
-          <mat-card-title>Cart Summary</mat-card-title>
-          <mat-card-subtitle>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</mat-card-subtitle>
+          <mat-card-title><h2>Cart Summary</h2></mat-card-title>
+          <mat-card-subtitle><h2>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</h2></mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="checkout()">Proceed to Checkout</button>
+          <button class="login-btn" (click)="checkout()">Proceed to Checkout</button>
         </mat-card-actions>
       </mat-card>
 </div>
