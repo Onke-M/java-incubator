@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 html, body { height: 100%; }
+html {
+  background-image: url('./assets/background.jpg');
+  background-size: cover;
+  overflow-y: auto !important;
+
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
 .login-wrapper .login-form {
@@ -61,6 +67,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     background: #2a2b38;
     margin-top: 10%;
     border-radius: 6px;
+  }
+
+  .mat-toolbar.mat-primary {
+    background: #2a2b38;
+    color: #fff;
   }
   
   .login-field {
@@ -147,3 +158,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     align-items: left;
     text-align: left;
   }
+
+  .example-icon {
+    color: #ffeba7;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.example-icon svg {
+    fill: #ffeba7;
+}

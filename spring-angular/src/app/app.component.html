@@ -2,11 +2,11 @@
   <mat-toolbar color="primary">
       <span [routerLink]="['/']">Books R Us</span>
       <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="openCart()">
-        <mat-icon>shopping_cart</mat-icon>
+      <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="openCart()">
+        <mat-icon class="example-icon">shopping_cart</mat-icon>
       </button>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="logout()" [routerLink]="['/login']">
-        <mat-icon>logout</mat-icon>
+      <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="logout()" [routerLink]="['/login']">
+        <mat-icon class="example-icon">logout</mat-icon>
       </button>
   </mat-toolbar>
 </p>
