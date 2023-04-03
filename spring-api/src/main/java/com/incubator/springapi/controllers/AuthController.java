@@ -1,9 +1,15 @@
 package com.incubator.springapi.controllers;
 
+import com.incubator.springapi.entities.LoginDTO;
+import com.incubator.springapi.entities.User;
+import com.incubator.springapi.repositories.UserRepository;
+import com.incubator.springapi.services.MyUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
@@ -25,9 +31,17 @@ public class AuthController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private final JwtEncoder jwtEncoder;
+    private PasswordEncoder passwordEncoder;
+
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+
+    private final UserRepository userRepository;
     @Autowired
-    public AuthController(JwtEncoder jwtEncoder) {
+    public AuthController(JwtEncoder jwtEncoder, MyUserDetailsService myUserDetailsService, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.jwtEncoder = jwtEncoder;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @GetMapping()
@@ -53,5 +67,37 @@ public class AuthController {
                 .claim("roles", scope)
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+    @PostMapping()
+    @RequestMapping("/login")
+    public String Login(@RequestBody LoginDTO loginDTO) {
+        User user = userRepository.findUserByEmail(loginDTO.getUsername());
+        if(user!=null){
+        LOGGER.info("User Exists");
+
+            if(encoder.matches(loginDTO.getPassword(), user.getPassword())){
+                LOGGER.info("Password is the same");
+
+
+                Instant now = Instant.now();
+                Long expiry = 259200L;
+                String scope = String.valueOf(user.getRole().getRoleDesc());
+
+                JwtClaimsSet claims = JwtClaimsSet.builder()
+                        .issuer("self")
+                        .issuedAt(now)
+                        .expiresAt(now.plusSeconds(expiry))
+                        .subject(user.getUsername())
+                        .claim("role", scope)
+                        .build();
+                return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+
+            }
+            LOGGER.info("Password is not the same");
+            return null;
+        }
+        LOGGER.info("User does not exist");
+        return null;
     }
 }

@@ -23,16 +23,9 @@ export class AuthService {
   }
 
   async Login(credentials:any): Promise<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': `Basic ${btoa(`${credentials.username}:${credentials.password}`)}`
-      })
-    };
 
     console.log('API CALL')
-    console.log(`${btoa(`${credentials.username}:${credentials.password}`)}`)
-    let httpCall = this.httpClient.post(`${API_URL}/token`, httpOptions)
+    let httpCall = this.httpClient.post(`${API_URL}/token/login`, credentials)
     let response = await lastValueFrom(httpCall)
     return response
   }

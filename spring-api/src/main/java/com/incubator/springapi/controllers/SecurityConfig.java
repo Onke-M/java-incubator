@@ -31,6 +31,9 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
 import java.security.interfaces.RSAPrivateKey;
@@ -79,28 +82,39 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration {
         return httpSecurity.build();
     }
 
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+            }
+        };
+    }
+
 
     @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity httpSecurity, Converter jwtAuthenticationConverter) throws Exception {
 
         httpSecurity
                 .authorizeHttpRequests()
-                .antMatchers("/role").hasRole("Admin")
+                .antMatchers("/role").permitAll()
                 .antMatchers("/token").permitAll()
                 .antMatchers("/users").permitAll()
                 .antMatchers("/cart").permitAll()
                 .antMatchers("/books").permitAll()
                 .and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .csrf(csrf -> {
-                    try {
-                        csrf.ignoringAntMatchers("/**").and().headers().frameOptions().disable();
-                        csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-                    } catch (Exception e) {
-                        log.error("Unable to configure HTTP Headers to for CSRF Ant Matchers. Exception message is {}", e.getMessage());
-                        throw new RuntimeException(e);
-                    }
-                })
+                .csrf().disable().cors().disable()
+//                (csrf -> {
+//                    try {
+//                        csrf.ignoringAntMatchers("/**").and().headers().frameOptions().disable();
+//                        csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//                    } catch (Exception e) {
+//                        log.error("Unable to configure HTTP Headers to for CSRF Ant Matchers. Exception message is {}", e.getMessage());
+//                        throw new RuntimeException(e);
+//                    }
+//                })
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler()))

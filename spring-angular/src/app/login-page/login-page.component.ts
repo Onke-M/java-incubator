@@ -32,7 +32,7 @@ export class LoginPageComponent {
 
   async loginUser(loginForm: any) {
     const credentials = {
-      email: loginForm.value.email,
+      username: loginForm.value.email,
       password: loginForm.value.password
     }
     await this.authService.Login(credentials)
