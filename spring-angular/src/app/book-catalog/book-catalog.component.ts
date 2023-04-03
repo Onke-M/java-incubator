@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BookCatalogService } from '../services/book-catalog.service';
 import { SnackbarService } from '../services/snackbar.service';
 import { CartService } from '../services/cart.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-book-catalog',
@@ -15,12 +16,20 @@ books:any[] = [];
 isLoading:boolean = false;
 cartItem:any = null;
 userID:number = 0;
+user:any;
 
-constructor(private httpClient: HttpClient, private bookCatalogService:BookCatalogService, private snackbarService:SnackbarService, private cartService:CartService){}
+constructor(private httpClient: HttpClient,
+   private bookCatalogService:BookCatalogService, 
+   private snackbarService:SnackbarService, 
+   private cartService:CartService,
+   private authService:AuthService){}
 
 async ngOnInit(){
 await this.getBooks();
-this.userID = 2
+
+this.user = this.authService.decodeToken(localStorage.getItem('token'))
+this.userID = parseInt(this.user.jti)
+
 }
 
 async getBooks() {

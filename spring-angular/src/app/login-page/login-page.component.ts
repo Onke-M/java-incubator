@@ -35,7 +35,12 @@ export class LoginPageComponent {
       username: loginForm.value.email,
       password: loginForm.value.password
     }
-    await this.authService.Login(credentials)
+    await this.authService.Login(credentials).then(() => {
+      if(localStorage.getItem('token') !=null){
+        this.router.navigate(['/'])
+      }
+      
+    })
     console.log(credentials);
   }
 

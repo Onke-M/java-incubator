@@ -1,6 +1,6 @@
 <h3 mat-dialog-title>View Cart</h3>
 <div class="container">
-<div class="cartItems">
+<div class="cartItems" *ngIf="!isCartEmpty">
     <mat-card class="example-card" *ngFor="let item of cart">
         <mat-card-header>
           <mat-card-title-group>
@@ -12,6 +12,20 @@
         <mat-card-content>
           {{item.quantity}}
           <button mat-button mat-dialog-close tabindex="1"><mat-icon>delete</mat-icon></button>
+        </mat-card-content>
+      </mat-card>
+</div>
+<div class="cartItems" *ngIf="isCartEmpty">
+      <mat-card class="example-card" >
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Your Cart Is Empty</mat-card-title>
+            <mat-card-subtitle>EMPTY</mat-card-subtitle>
+            <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          EMPTY
         </mat-card-content>
       </mat-card>
 </div>

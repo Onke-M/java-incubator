@@ -5,7 +5,10 @@ import com.incubator.springapi.entities.User;
 import com.incubator.springapi.repositories.UserRepository;
 import com.incubator.springapi.services.MyUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -71,7 +74,7 @@ public class AuthController {
 
     @PostMapping()
     @RequestMapping("/login")
-    public String Login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> Login(@RequestBody LoginDTO loginDTO) {
         User user = userRepository.findUserByEmail(loginDTO.getUsername());
         if(user!=null){
         LOGGER.info("User Exists");
@@ -92,7 +95,10 @@ public class AuthController {
                         .claim("role", scope)
                         .id(user.getUserID().toString())
                         .build();
-                return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+
+                JSONObject jo = new JSONObject();
+                jo.put("token", jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue());
+                return new ResponseEntity<>(jo.toString(), HttpStatus.OK);
 
             }
             LOGGER.info("Password is not the same");

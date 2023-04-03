@@ -4,6 +4,7 @@ import { SnackbarService } from '../services/snackbar.service';
 import { CartService } from '../services/cart.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -14,13 +15,26 @@ export class CartPageComponent implements OnInit {
   isLoading:boolean = false;
   cart:any[] = [];
   userID:number = 0;
+  user:any;
   cartTotal:number = 0;
+  isCartEmpty:boolean = true;
   
-  constructor(private httpClient: HttpClient, private snackbarService:SnackbarService, private cartService:CartService, public dialogRef: MatDialogRef<CartPageComponent>,private router: Router){}
+  constructor(private httpClient: HttpClient, 
+    private snackbarService:SnackbarService, 
+    private cartService:CartService, 
+    public dialogRef: MatDialogRef<CartPageComponent>,
+    private router: Router,
+    private authService:AuthService){}
 
   async ngOnInit(){
-    this.userID = 2
-    await this.getCart(this.userID);
+    this.user = this.authService.decodeToken(localStorage.getItem('token'))
+    this.userID = parseInt(this.user.jti)
+
+    await this.getCart(this.userID).then(()=>{
+      if(this.cart.length > 0){
+        this.isCartEmpty = false;
+      }
+    });
     }
 
   async getCart(userID:number) {
@@ -42,9 +56,6 @@ export class CartPageComponent implements OnInit {
   }
 
   async checkout(){
-    // await this.cart.forEach(item => {
-    //   this.cartService.Checkout(item)
-    // })
     this.cartService.setCartAndTotal(this.cart, this.cartTotal)
     this.dialogRef.close();
     this.router.navigate(['/checkout']);

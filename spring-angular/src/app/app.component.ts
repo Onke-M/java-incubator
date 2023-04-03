@@ -16,4 +16,8 @@ export class AppComponent {
   openCart(){
     this.dialog.open(CartPageComponent, {disableClose: true, height: '650px'});
   }
+
+  logout(){
+    localStorage.clear();
+  }
 }
