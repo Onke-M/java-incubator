@@ -14,6 +14,11 @@ import { DeliveryCheckoutPageComponent } from './delivery-checkout-page/delivery
 import { PaymentCheckoutPageComponent } from './payment-checkout-page/payment-checkout-page.component';
 import { OrderConfirmationPageComponent } from './order-confirmation-page/order-confirmation-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { EditBookComponent } from './books-crud/edit-book/edit-book.component';
+import { AddBookComponent } from './books-crud/add-book/add-book.component';
+import { ViewBooksComponent } from './books-crud/view-books/view-books.component';
+import { ViewUsersComponent } from './users-crud/view-users/view-users.component';
+import { AddUserComponent } from './users-crud/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     DeliveryCheckoutPageComponent,
     PaymentCheckoutPageComponent,
     OrderConfirmationPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    EditBookComponent,
+    AddBookComponent,
+    ViewBooksComponent,
+    ViewUsersComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
