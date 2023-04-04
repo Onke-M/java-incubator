@@ -1,7 +1,10 @@
 package com.incubator.springapi.services;
 
+import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.User;
 import com.incubator.springapi.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +26,19 @@ public class UserService {
         userIterable.forEach(result::add);
 
         return result;
+    }
+
+    public ResponseEntity<?> deleteUser(Integer userID){
+        try {
+            User user = userRepository.findByUserID(userID);
+            if(user!=null) {
+                userRepository.delete(user);
+                return new ResponseEntity<>(null, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
+        }
     }
 
     public User getUser(Integer userID) {

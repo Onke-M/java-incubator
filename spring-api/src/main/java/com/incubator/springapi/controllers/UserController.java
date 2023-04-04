@@ -63,6 +63,19 @@ public class UserController {
         }
     }
 
+    @DeleteMapping
+    public ResponseEntity<User> deleteUser(@RequestParam Integer userID){
+        try {
+            userService.deleteUser(userID);
+            log.info("User: {} was deleted successfully", userID);
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.warn("User: {} failed to delete", userID);
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
     @PostMapping("/registerAdmin")
     public ResponseEntity<User> registerAdmin(@RequestBody User newUser) {
         Role customerRole = new Role();

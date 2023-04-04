@@ -43,4 +43,44 @@ public class BookController {
         LOGGER.info("No books could be found");
         return ResponseEntity.notFound().build();
     }
+
+    @PostMapping
+    public ResponseEntity<Book> createBook(Book newBook){
+        try {
+            bookService.createNewBook(newBook);
+            log.info("Book: {} was created successfully", newBook.getBookName());
+            return new ResponseEntity<>(newBook, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.warn("Book: {} failed to create", newBook.getBookName());
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<Book> updateBook(Book updateBook){
+        try {
+            bookService.updateBook(updateBook);
+            log.info("Book: {} was updated successfully", updateBook.getBookName());
+            return new ResponseEntity<>(updateBook, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.warn("Book: {} failed to update", updateBook.getBookName());
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Book> deleteBook(Book book){
+        try {
+            bookService.deleteBook(book);
+            log.info("Book: {} was deleted successfully", book.getBookName());
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.warn("Book: {} failed to delete", book.getBookName());
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
 }
