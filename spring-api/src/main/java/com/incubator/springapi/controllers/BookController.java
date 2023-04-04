@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/books")
-@CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class BookController {
     private BookService bookService;
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -45,7 +45,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(Book newBook){
+    public ResponseEntity<Book> createBook(@RequestBody Book newBook){
         try {
             bookService.createNewBook(newBook);
             log.info("Book: {} was created successfully", newBook.getBookName());
@@ -58,10 +58,10 @@ public class BookController {
     }
 
     @PutMapping
-    public ResponseEntity<Book> updateBook(Book updateBook){
+    public ResponseEntity<Book> updateBook(@RequestBody Book updateBook){
         try {
             bookService.updateBook(updateBook);
-            log.info("Book: {} was updated successfully", updateBook.getBookName());
+            log.info("Book: {} was updated successfully", updateBook);
             return new ResponseEntity<>(updateBook, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class BookController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Book> deleteBook(Book book){
+    public ResponseEntity<Book> deleteBook(@RequestBody Book book){
         try {
             bookService.deleteBook(book);
             log.info("Book: {} was deleted successfully", book.getBookName());

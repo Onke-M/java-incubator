@@ -40,7 +40,7 @@ public class BookService {
 
     public ResponseEntity<?> deleteBook(Book book){
         try {
-            Book existingBook = bookRepository.findBookByBookName(book.getBookName());
+            Book existingBook = bookRepository.findByBookID(book.getBookID());
             if(existingBook!=null) {
                 bookRepository.delete(existingBook);
                 return new ResponseEntity<>(null, HttpStatus.OK);
@@ -53,7 +53,7 @@ public class BookService {
 
     public Book updateBookQuantity(Book book, Integer quantitySold){
         try{
-            Book existingBook = bookRepository.findBookByBookName(book.getBookName());
+            Book existingBook = bookRepository.findByBookID(book.getBookID());
             if(existingBook!=null)
             {
                 existingBook.setAvailableQuantity(existingBook.getAvailableQuantity() - quantitySold);
@@ -68,7 +68,7 @@ public class BookService {
 
     public ResponseEntity<?> updateBook(Book book){
         try{
-            Book existingBook = bookRepository.findBookByBookName(book.getBookName());
+            Book existingBook = bookRepository.findByBookID(book.getBookID());
             if(existingBook!=null)
             {
                 existingBook.setBookName(book.getBookName());
