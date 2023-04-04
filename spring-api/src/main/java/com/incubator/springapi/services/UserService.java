@@ -1,5 +1,6 @@
 package com.incubator.springapi.services;
 
+import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.User;
 import com.incubator.springapi.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -8,16 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
 
-    private final CartService cartService;
-
-    public UserService(UserRepository userRepository, CartService cartService) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.cartService = cartService;
     }
 
     public List<User> getAllUsers() {
@@ -53,10 +52,6 @@ public class UserService {
 
     public User registerUser(User newUser){
         newUser = userRepository.save(newUser);
-        if(newUser.getRole().getRoleDesc() == "Customer"){
-            cartService.createCart(newUser);
-            return newUser;
-        }
         return newUser;
     }
 }
