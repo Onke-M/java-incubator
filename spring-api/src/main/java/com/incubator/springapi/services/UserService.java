@@ -56,7 +56,7 @@ public class UserService {
     public User registerUser(User newUser){
         newUser = userRepository.save(newUser);
         if(Objects.equals(newUser.getRole().getRoleDesc(), "Customer")){
-            
+
             Cart cart = new Cart();
             cart.setUser(newUser);
             cartRepository.save(cart);
