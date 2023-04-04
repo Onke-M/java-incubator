@@ -34,13 +34,6 @@ public class CartService {
         return result;
     }
 
-    public Cart createCart(User user) {
-        Cart cart = new Cart();
-        cart.setUser(user);
-        cartRepository.save(cart);
-        return cart;
-    }
-
     public List<CartItem> getUserCart(Integer userID) {
         User user = userService.getUser(userID);
         if(user!=null)
