@@ -18,3 +18,20 @@
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
+
+  .wrapper{
+    max-height: 100%;
+    margin-top: 5%;
+    justify-content: center;
+    display: flex;
+    overflow-x:auto;
+  }
+
+  .wrapper::-webkit-scrollbar{
+    width:0;
+  }
+
+  .wrapper .item{
+    max-width: 30%;
+    max-height: 50%;
+  }

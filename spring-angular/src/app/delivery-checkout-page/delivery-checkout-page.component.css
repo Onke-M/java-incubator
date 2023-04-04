@@ -3,9 +3,14 @@
     margin-left: 40px;
     margin-right: 10px;
     margin-bottom: 10px;
+    background: #2a2b38;
   }
   .container {
     display: flex; /* or inline-flex */
+  }
+
+  h2{
+    color: white;
   }
 
   .container > *{
@@ -19,4 +24,8 @@
     padding-right: 40px;
     padding-bottom: 40px;
     font-size: 25px;
+  }
+
+  .mat-radio-outer-circle{
+    color: white !important;
   }

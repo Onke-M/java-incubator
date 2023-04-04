@@ -1,5 +1,6 @@
 <div class="container">
     <mat-card class="card-container">
+      <mat-card-title><h2 style="padding-left: 10px;">Enter Your Card Details</h2></mat-card-title>
         <form [formGroup]="paymentDetails" class="mat-dialog-content">
   
             <!--Textarea for demo purposes-->
@@ -28,20 +29,20 @@
             <span *ngIf="paymentDetails.controls['cvvNumber'].errors?.['required'] && paymentDetails.controls['cvvNumber'].touched" style="color: #d32f2f;">Please enter a valid quantity</span>
           </form>
           <mat-card-actions>
-            <button mat-raised-button color="primary"  >Add</button>
-            <button mat-raised-button tabindex="-1" color="accent">Cancel</button>
+            <button mat-raised-button color="accent">Add</button>
+            <button mat-raised-button tabindex="-1" style="margin-left: 6px;" color="warn">Cancel</button>
         </mat-card-actions>
     </mat-card>
 
     <div class="actions">
     <div class="checkout">
-        <mat-card>
+        <mat-card style="background: #2a2b38;">
             <mat-card-header>
-              <mat-card-title>Cart Summary</mat-card-title>
-              <mat-card-subtitle>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</mat-card-subtitle>
+              <mat-card-title><h2>Cart Summary</h2></mat-card-title>
+              <mat-card-subtitle><h2>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</h2></mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions>
-              <button mat-raised-button color="primary" matStepperNext>Continue</button>
+              <button mat-raised-button color="accent" matStepperNext>Continue</button>
             </mat-card-actions>
           </mat-card>
     </div>

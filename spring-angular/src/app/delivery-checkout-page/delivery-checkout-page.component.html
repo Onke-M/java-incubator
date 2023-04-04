@@ -6,28 +6,30 @@
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-title>
-            {{address.type}}
+            <h2>
+              {{address.type}}
+            </h2>
           </mat-card-title>
-          <mat-card-subtitle>{{address.street}}, {{address.suburb}}, {{address.city}}, {{address.code}}</mat-card-subtitle>
+          <mat-card-subtitle><h2>{{address.street}}, {{address.suburb}}, {{address.city}}, {{address.code}}</h2></mat-card-subtitle>
           <img mat-card-sm-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" >
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
-          <button mat-button mat-dialog-close tabindex="1"><mat-icon>edit</mat-icon></button>
-          <button mat-button mat-dialog-close tabindex="-1"><mat-icon>delete</mat-icon></button>
+          <button mat-button mat-dialog-close tabindex="1"><mat-icon class="example-icon">edit</mat-icon></button>
+          <button mat-button mat-dialog-close tabindex="-1"><mat-icon class="example-icon">delete</mat-icon></button>
       </mat-card-content>
     </mat-card>
   </mat-radio-group>
 </div>
 <div class="actions">
 <div class="checkout">
-    <mat-card>
+    <mat-card style="background: #2a2b38;">
         <mat-card-header>
-          <mat-card-title>Cart Summary</mat-card-title>
-          <mat-card-subtitle>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</mat-card-subtitle>
+          <mat-card-title><h2>Cart Summary</h2></mat-card-title>
+          <mat-card-subtitle><h2>Total: {{cartTotal | currency:'ZAR':"symbol-narrow"}}</h2></mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-raised-button color="primary" matStepperNext [disabled]="selectedAddress == null">Continue</button>
+          <button mat-raised-button color="accent" matStepperNext [disabled]="selectedAddress == null">Continue</button>
         </mat-card-actions>
       </mat-card>
 </div>

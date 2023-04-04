@@ -13,11 +13,18 @@
         min-width: 450px;
         width: 100%;
         min-height: auto;
+        background: #2a2b38;
+  }
+
+  h2{
+    color: white;
   }
 
   .form {
     display: flex;
     padding-top: 6px;
+    padding-left: 10px;
+    width: 100%;
   }
 
   .checkout{

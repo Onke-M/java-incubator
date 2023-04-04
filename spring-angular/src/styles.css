@@ -82,7 +82,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
   .login-input-icon {
     height: 1em;
     width: 1em;
-    fill: #ffeba7;
+    fill: #F5CF3D;
   }
   
   .login-input-field {
@@ -119,7 +119,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     font-size: 1em;
     text-transform: uppercase;
     padding: 0.6em 1.2em;
-    background-color: #ffeba7;
+    background-color: #F5CF3D;
     color: #5e6681;
     box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
     transition: all .3s ease-in-out;
@@ -154,9 +154,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
   }
 
   .example-icon {
-    color: #ffeba7;
+    color: #F5CF3D;
 }
 /* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
 .example-icon svg {
-    fill: #ffeba7;
+    fill: #F5CF3D;
 }
