@@ -3,6 +3,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-login-page',
@@ -22,7 +23,8 @@ export class LoginPageComponent {
     public fb: FormBuilder,
     public router: Router,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbar: SnackbarService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,9 +39,12 @@ export class LoginPageComponent {
     }
     await this.authService.Login(credentials).then(() => {
       if(localStorage.getItem('token') !=null){
-        this.router.navigate(['/'])
+        this.router.navigate(['/book-catalog'])
       }
-      
+      else{
+        this.snackbar.setMessage('Invalid credentials, please try again')
+        this.snackbar.openSnackBar()
+      }
     })
     console.log(credentials);
   }

@@ -160,3 +160,128 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .example-icon svg {
     fill: #F5CF3D;
 }
+
+table {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+mat-paginator {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.search {
+  color: rgb(0, 0, 0);
+  width: 40%;
+}
+
+.title {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+  font-size: 40px !important;
+  color: var(--mainDarkColor)
+}
+
+.titleSub {
+  overflow: hidden;
+  background-color: var(--mainDarkColor)00;
+  flex-direction: column;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+  box-shadow: none !important;
+}
+
+.tableBtns {
+  overflow: hidden;
+  background-color: var(--mainDarkColor)00;
+  flex-direction: column;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1%;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  box-shadow: none !important;
+}
+
+.titleSub th {
+
+  background-color: var(--mainDarkColor);
+  color: black !important;
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.titleSub th,
+.titleSub td {
+  padding: 12px 15px;
+}
+
+.titleSub tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.titleSub tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.titleSub tbody tr:last-of-type {
+  border-bottom: 2px solid var(--mainDarkColor);
+}
+
+.titleSub td tr.active-row {
+  font-weight: bold;
+  color: var(--accentColor);
+}
+
+.f-r {
+  float: right !important;
+}
+
+.example-container {
+  position: relative;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 72px;
+  /* height: 400px; */
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #2a2b38ad;
+  color: white;
+  transition: all .3s ease 0s;
+}
+
+.tableContainer {
+  overflow: auto;
+}

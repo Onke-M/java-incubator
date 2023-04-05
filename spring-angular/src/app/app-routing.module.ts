@@ -9,7 +9,7 @@ import { ViewBooksComponent } from './books-crud/view-books/view-books.component
 
 const routes: Routes = [
 {path: 'book-catalog', component: BookCatalogComponent},
-{path: '', component: BookCatalogComponent},
+{path: '', component: LoginPageComponent},
 {path: 'checkout', component: CheckoutPageComponent},
 {path: 'login', component: LoginPageComponent},
 {path: 'register', component: RegisterPageComponent},
