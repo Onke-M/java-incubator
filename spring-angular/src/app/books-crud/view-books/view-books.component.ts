@@ -5,6 +5,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { BookCatalogService } from 'src/app/services/book-catalog.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { AddBookComponent } from '../add-book/add-book.component';
 
 interface Book {
   bookID:number;
@@ -25,7 +27,7 @@ export class ViewBooksComponent {
 isLoading:boolean = false;
 books!:Book[];
 
-constructor(private bookCatalogService: BookCatalogService, private snackbarService:SnackbarService){}
+constructor(private bookCatalogService: BookCatalogService, private snackbarService:SnackbarService, private dialog:MatDialog){}
 displayedColumns: string[] = ['BookName', 'Price', 'AvailableQuantity', 'Actions'];
 dataSource = new MatTableDataSource<Book>()
 
@@ -41,6 +43,13 @@ dataSource = new MatTableDataSource<Book>()
     this.bookCatalogService.GetBooks();
   }
 
+  async addBook() {
+
+    this.dialog.open(AddBookComponent, {disableClose: true})
+    .afterClosed().subscribe(async () => {
+      this.snackbarService.openSnackBar(), await this.getBooks();
+    });
+  }
 
   async applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

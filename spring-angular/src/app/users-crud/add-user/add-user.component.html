@@ -1,1 +1,40 @@
-<p>add-user works!</p>
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+    <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+  <div class="container">
+    <h3 mat-dialog-title>Add New User</h3>
+  
+    <form [formGroup]="addUser" class="mat-dialog-content">
+  
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input placeholder="Username" id="username" formControlName="username">
+        </mat-form-field>
+      </div>
+      <span *ngIf="addUser.controls['username'].errors?.['required'] && addUser.controls['username'].touched"
+        style="color: red; padding-left: 10px;">Please enter username</span>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input placeholder="Email Address" id="email" formControlName="email">
+        </mat-form-field>
+      </div>
+      <span *ngIf="addUser.controls['email'].errors?.['required'] && addUser.controls['email'].touched"
+        style="color: red; padding-left: 10px;">Please enter a valid email address</span>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="date" placeholder="Date Of Birth" id="dateOfBirth" formControlName="dateOfBirth" required>
+        </mat-form-field>
+      </div>
+      <span *ngIf="addUser.controls['dateOfBirth'].errors?.['required'] && addUser.controls['dateOfBirth'].touched"
+        style="color: red; padding-left: 10px;">Please enter your date of birth</span>
+  
+      <!-- [type]="submit" -->
+    </form>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="accent" [disabled]="!addUser.valid" (click)="confirmAdd()">Add</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="warn">Cancel</button>
+    </div>
+  </div>

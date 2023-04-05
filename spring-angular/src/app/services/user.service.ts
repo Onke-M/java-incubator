@@ -5,34 +5,33 @@ import { environment } from 'src/environments/environment';
 
 const API_URL = environment.API_URL;
 
-interface Book {
-bookID:number;
-bookName:string;
-publicationDate:string;
-bookVersion:number;
-availableQuantity:number;
-price:number
+interface User {
+userID:number;
+username:string;
+email:string;
+password:string;
+dateOfBirth:string;
+role:any;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookCatalogService {
-
-  books:Book[] = []
+export class UserService {
+  users:User[] = []
 
   constructor(private httpClient: HttpClient) { }
 
-  async GetBooks(): Promise<any> {
+  async GetUsers(): Promise<any> {
     console.log('API CALL')
-    let httpCall = this.httpClient.get(`${API_URL}/books`)
+    let httpCall = this.httpClient.get(`${API_URL}/users`)
     let response = await lastValueFrom(httpCall)
     return response
   }
 
-  async AddBook(book:any){
+  async AddUser(user:any){
     console.log('API CALL')
-    let httpCall = this.httpClient.post(`${API_URL}/books`, book)
+    let httpCall = this.httpClient.post(`${API_URL}/users/registerAdmin`, user)
     let response = await lastValueFrom(httpCall)
     return response
   }
