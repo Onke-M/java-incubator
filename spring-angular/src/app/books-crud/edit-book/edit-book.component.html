@@ -2,7 +2,7 @@
     <mat-icon aria-hidden="false">close</mat-icon>
   </button>
   <div class="container">
-    <h3 mat-dialog-title>Edit Book</h3>
+    <h3 mat-dialog-title>Update Book</h3>
   
     <form [formGroup]="editBook" class="mat-dialog-content">
   
@@ -50,7 +50,7 @@
       <!-- [type]="submit" -->
     </form>
     <div mat-dialog-actions>
-      <button mat-raised-button color="accent" [disabled]="!editBook.valid" (click)="confirmAdd()">Add</button>
+      <button mat-raised-button color="accent" [disabled]="!editBook.valid" (click)="confirmAdd()">Update</button>
       <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="warn">Cancel</button>
     </div>
   </div>
