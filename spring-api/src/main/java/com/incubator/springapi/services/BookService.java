@@ -3,6 +3,7 @@ package com.incubator.springapi.services;
 import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.Cart;
 import com.incubator.springapi.entities.User;
+import com.incubator.springapi.interfaces.IBookService;
 import com.incubator.springapi.repositories.BookRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BookService {
+public class BookService implements IBookService {
     private final BookRepository bookRepository;
 
     public BookService(BookRepository bookRepository){

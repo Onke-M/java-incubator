@@ -2,6 +2,7 @@ package com.incubator.springapi.services;
 
 import com.incubator.springapi.entities.Cart;
 import com.incubator.springapi.entities.User;
+import com.incubator.springapi.interfaces.IUserService;
 import com.incubator.springapi.repositories.CartRepository;
 import com.incubator.springapi.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
 

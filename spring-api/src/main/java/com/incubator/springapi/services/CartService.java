@@ -4,6 +4,7 @@ import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.Cart;
 import com.incubator.springapi.entities.CartItem;
 import com.incubator.springapi.entities.User;
+import com.incubator.springapi.interfaces.ICartService;
 import com.incubator.springapi.repositories.CartItemRepository;
 import com.incubator.springapi.repositories.CartRepository;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CartService {
+public class CartService implements ICartService {
     private final CartItemRepository cartItemRepository;
     private final UserService userService;
     private final BookService bookService;
