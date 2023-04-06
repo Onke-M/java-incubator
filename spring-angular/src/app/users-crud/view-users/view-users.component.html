@@ -42,7 +42,7 @@
           <ng-container matColumnDef="Actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let user">
-              <button mat-icon-button>
+              <button mat-icon-button (click)="deleteUser(user)">
                 <mat-icon class="example-icon">delete_outline</mat-icon>
               </button>
   

@@ -35,4 +35,11 @@ export class UserService {
     let response = await lastValueFrom(httpCall)
     return response
   }
+
+  async DeleteUser(userID:number){
+    console.log('API CALL')
+    let httpCall = this.httpClient.delete(`${API_URL}/users?userID=${userID}`)
+    let response = await lastValueFrom(httpCall)
+    return response
+  }
 }

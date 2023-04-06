@@ -43,6 +43,12 @@ dataSource = new MatTableDataSource<Book>()
     this.bookCatalogService.GetBooks();
   }
 
+  async deleteBook(book:any){
+    await this.bookCatalogService.DeleteBook(book.bookID)
+    this.snackbarService.setMessage(`${this.truncateChar(book.bookName)} has been deleted successfully`)
+    this.snackbarService.openSnackBar()
+  }
+
   async addBook() {
 
     this.dialog.open(AddBookComponent, {disableClose: true})
@@ -71,5 +77,17 @@ dataSource = new MatTableDataSource<Book>()
       }
     ).finally(() => this.isLoading = false);
     console.log(this.books)
+  }
+
+  truncateChar(text: string): string {
+    let charlimit = 10;
+    if(!text || text.length <= charlimit )
+    {
+        return text;
+    }
+  
+  let without_html = text.replace(/<(?:.|\n)*?>/gm, '');
+  let shortened = without_html.substring(0, charlimit) + "...";
+  return shortened;
   }
 }

@@ -36,4 +36,11 @@ export class BookCatalogService {
     let response = await lastValueFrom(httpCall)
     return response
   }
+
+  async DeleteBook(bookID:number){
+    console.log('API CALL')
+    let httpCall = this.httpClient.delete(`${API_URL}/books?bookID=${bookID}`)
+    let response = await lastValueFrom(httpCall)
+    return response
+  }
 }

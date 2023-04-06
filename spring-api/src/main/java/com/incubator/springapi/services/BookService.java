@@ -38,9 +38,9 @@ public class BookService {
         }
     }
 
-    public ResponseEntity<?> deleteBook(Book book){
+    public ResponseEntity<?> deleteBook(Integer bookID){
         try {
-            Book existingBook = bookRepository.findByBookID(book.getBookID());
+            Book existingBook = bookRepository.findByBookID(bookID);
             if(existingBook!=null) {
                 bookRepository.delete(existingBook);
                 return new ResponseEntity<>(null, HttpStatus.OK);

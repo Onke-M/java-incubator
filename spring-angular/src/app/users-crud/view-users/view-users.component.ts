@@ -56,6 +56,12 @@ export class ViewUsersComponent {
         this.snackbarService.openSnackBar(), await this.getUsers();
       });
     }
+
+    async deleteUser(user:any){
+      await this.userService.DeleteUser(user.userID)
+      this.snackbarService.setMessage(`${user.username} has been deleted successfully`)
+      this.snackbarService.openSnackBar()
+    }
   
     async getUsers() {
       console.log('Getting users')

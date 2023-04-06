@@ -71,14 +71,14 @@ public class BookController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Book> deleteBook(@RequestBody Book book){
+    public ResponseEntity<Book> deleteBook(@RequestParam Integer bookID){
         try {
-            bookService.deleteBook(book);
-            log.info("Book: {} was deleted successfully", book.getBookName());
+            bookService.deleteBook(bookID);
+            log.info("Book: {} was deleted successfully", bookID);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (Exception e) {
-            log.warn("Book: {} failed to delete", book.getBookName());
+            log.warn("Book: {} failed to delete", bookID);
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
     }
