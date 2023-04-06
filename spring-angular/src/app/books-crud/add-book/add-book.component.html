@@ -17,10 +17,10 @@
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input type="number" placeholder="Book Version" id="bookVersion" formControlName="bookVersion">
+          <input matInput #input type="number" placeholder="Book Version" id="version" formControlName="version">
         </mat-form-field>
       </div>
-      <span *ngIf="addBook.controls['bookVersion'].errors?.['required'] && addBook.controls['bookVersion'].touched"
+      <span *ngIf="addBook.controls['version'].errors?.['required'] && addBook.controls['version'].touched"
         style="color: red; padding-left: 10px;">Please enter the Book Version </span>
 
       <div class="form">

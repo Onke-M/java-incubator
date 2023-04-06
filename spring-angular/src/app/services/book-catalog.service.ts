@@ -18,7 +18,7 @@ price:number
   providedIn: 'root'
 })
 export class BookCatalogService {
-
+  book:any;
   books:Book[] = []
 
   constructor(private httpClient: HttpClient) { }
@@ -37,10 +37,25 @@ export class BookCatalogService {
     return response
   }
 
+  async UpdateBook(book:any){
+    console.log('API CALL')
+    let httpCall = this.httpClient.put(`${API_URL}/books`, book)
+    let response = await lastValueFrom(httpCall)
+    return response
+  }
+
   async DeleteBook(bookID:number){
     console.log('API CALL')
     let httpCall = this.httpClient.delete(`${API_URL}/books?bookID=${bookID}`)
     let response = await lastValueFrom(httpCall)
     return response
+  }
+
+  async mapBook(book:any){
+    this.book = book
+  }
+
+  async getMappedBook(){
+    return this.book
   }
 }

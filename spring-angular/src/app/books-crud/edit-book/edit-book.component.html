@@ -1,1 +1,56 @@
-<p>edit-book works!</p>
+<button tabindex="-1" class="close" mat-button (click)="onNoClick()">
+    <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+  <div class="container">
+    <h3 mat-dialog-title>Edit Book</h3>
+  
+    <form [formGroup]="editBook" class="mat-dialog-content">
+  
+      <!--Textarea for demo purposes-->
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input placeholder="Book Name" id="bookName" formControlName="bookName">
+        </mat-form-field>
+      </div>
+      <span *ngIf="editBook.controls['bookName'].errors?.['required'] && editBook.controls['bookName'].touched"
+        style="color: red; padding-left: 10px;">Please enter the Book Name</span>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input type="number" placeholder="Book Version" id="version" formControlName="version">
+        </mat-form-field>
+      </div>
+      <span *ngIf="editBook.controls['version'].errors?.['required'] && editBook.controls['version'].touched"
+        style="color: red; padding-left: 10px;">Please enter the Book Version </span>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput type="date" placeholder="Publication Date" id="publicationDate" formControlName="publicationDate" required>
+        </mat-form-field>
+      </div>
+      <span *ngIf="editBook.controls['publicationDate'].errors?.['required'] && editBook.controls['publicationDate'].touched"
+        style="color: red; padding-left: 10px;">Please enter your date of birth</span>
+
+        <div class="form">
+            <mat-form-field color="accent">
+              <input matInput #input type="number" placeholder="Price" id="price" formControlName="price">
+            </mat-form-field>
+          </div>
+          <span *ngIf="editBook.controls['price'].errors?.['required'] && editBook.controls['price'].touched"
+            style="color: red; padding-left: 10px;">Please enter the Price </span>
+
+            <div class="form">
+                <mat-form-field color="accent">
+                  <input matInput #input type="number" placeholder="Available Quantity" id="availableQuantity" formControlName="availableQuantity">
+                </mat-form-field>
+              </div>
+              <span *ngIf="editBook.controls['availableQuantity'].errors?.['required'] && editBook.controls['availableQuantity'].touched"
+                style="color: red; padding-left: 10px;">Please enter the Available Quantity </span>
+  
+      <!-- [type]="submit" -->
+    </form>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="accent" [disabled]="!editBook.valid" (click)="confirmAdd()">Add</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="warn">Cancel</button>
+    </div>
+  </div>

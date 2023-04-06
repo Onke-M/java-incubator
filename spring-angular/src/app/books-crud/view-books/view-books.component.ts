@@ -7,6 +7,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBookComponent } from '../add-book/add-book.component';
+import { EditBookComponent } from '../edit-book/edit-book.component';
 
 interface Book {
   bookID:number;
@@ -47,6 +48,14 @@ dataSource = new MatTableDataSource<Book>()
     await this.bookCatalogService.DeleteBook(book.bookID)
     this.snackbarService.setMessage(`${this.truncateChar(book.bookName)} has been deleted successfully`)
     this.snackbarService.openSnackBar()
+  }
+
+  async editBook(book:any){
+    await this.bookCatalogService.mapBook(book)
+    this.dialog.open(EditBookComponent, {disableClose: true})
+    .afterClosed().subscribe(async () => {
+      this.snackbarService.openSnackBar(), await this.getBooks();
+    });
   }
 
   async addBook() {

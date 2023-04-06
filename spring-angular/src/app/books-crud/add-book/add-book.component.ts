@@ -26,7 +26,7 @@ export class AddBookComponent {
       this.addBook = new FormGroup({
         bookName: new FormControl('', [Validators.required]),
         publicationDate: new FormControl('', [Validators.required]),
-        bookVersion: new FormControl('', [Validators.required]),
+        version: new FormControl('', [Validators.required]),
         availableQuantity: new FormControl('', [Validators.required]),
         price: new FormControl('', [Validators.required])
       })
@@ -37,7 +37,7 @@ export class AddBookComponent {
         let book = {
           bookName: this.addBook.value.bookName,
           publicationDate: this.addBook.value.publicationDate,
-          bookVersion: this.addBook.value.bookVersion,
+          version: this.addBook.value.version,
           availableQuantity: this.addBook.value.availableQuantity,
           price: this.addBook.value.price
         }
