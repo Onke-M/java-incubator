@@ -12,7 +12,7 @@ import { CartPageComponent } from './cart-page/cart-page.component';
 const routes: Routes = [
 {path: 'book-catalog', component: BookCatalogComponent},
 
-{path: '', component: LoginPageComponent},
+{path: '', component: BookCatalogComponent},
 
 {path: 'checkout', component: CheckoutPageComponent},
 
