@@ -43,7 +43,7 @@ constructor(private authService: AuthService, private router: Router, private sn
       const userRole = this.authService.getRole();
       if (route.data['role'] && route.data['role'].indexOf(userRole) === -1) {
         this.router.navigate(['/book-catalog']);
-        this.snackbar.setMessage('You are not an Admin')
+        this.snackbar.setMessage('Invalid Role')
         this.snackbar.openSnackBar()
         return false;
       }

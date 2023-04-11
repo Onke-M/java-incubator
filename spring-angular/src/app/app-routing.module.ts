@@ -7,6 +7,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { ViewUsersComponent } from './users-crud/view-users/view-users.component';
 import { ViewBooksComponent } from './books-crud/view-books/view-books.component';
 import { AuthGuard } from './services/auth.guard';
+import { CartPageComponent } from './cart-page/cart-page.component';
 
 const routes: Routes = [
 {path: 'book-catalog', component: BookCatalogComponent},
@@ -14,6 +15,11 @@ const routes: Routes = [
 {path: '', component: LoginPageComponent},
 
 {path: 'checkout', component: CheckoutPageComponent},
+
+{path: 'cart', component: CartPageComponent, canActivate: [AuthGuard],
+data: {
+  role: 'Customer'
+}},
 
 {path: 'login', component: LoginPageComponent},
 

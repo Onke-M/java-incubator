@@ -22,7 +22,6 @@ export class CartPageComponent implements OnInit {
   constructor(private httpClient: HttpClient, 
     private snackbarService:SnackbarService, 
     private cartService:CartService, 
-    public dialogRef: MatDialogRef<CartPageComponent>,
     private router: Router,
     private authService:AuthService){}
 
@@ -57,7 +56,6 @@ export class CartPageComponent implements OnInit {
 
   async checkout(){
     this.cartService.setCartAndTotal(this.cart, this.cartTotal)
-    this.dialogRef.close();
     this.router.navigate(['/checkout']);
   }
 

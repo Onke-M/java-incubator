@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { SnackbarService } from './services/snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,10 @@ import { SnackbarService } from './services/snackbar.service';
 export class AppComponent {
   title = 'spring-angular';
 
-  constructor(public dialog: MatDialog, private snackBarService:SnackbarService){}
+  constructor(public dialog: MatDialog, private snackBarService:SnackbarService, private router: Router){}
 
   openCart(){
-    this.dialog.open(CartPageComponent, {disableClose: true, height: '650px'});
+    this.router.navigate(['/cart']);
   }
 
   logout(){
