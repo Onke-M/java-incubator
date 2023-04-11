@@ -4,6 +4,7 @@ import { BookCatalogService } from '../services/book-catalog.service';
 import { SnackbarService } from '../services/snackbar.service';
 import { CartService } from '../services/cart.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-catalog',
@@ -22,7 +23,8 @@ constructor(private httpClient: HttpClient,
    private bookCatalogService:BookCatalogService, 
    private snackbarService:SnackbarService, 
    private cartService:CartService,
-   public authService:AuthService){}
+   private authService:AuthService,
+   private router: Router){}
 
 async ngOnInit(){
 await this.getBooks();
@@ -62,6 +64,7 @@ async addToCart(book:any){
   else{
     this.snackbarService.setMessage('You are not logged in')
     this.snackbarService.openSnackBar()
+    this.router.navigate(['/login']);
   }
 }
 
