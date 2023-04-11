@@ -22,7 +22,7 @@ constructor(private httpClient: HttpClient,
    private bookCatalogService:BookCatalogService, 
    private snackbarService:SnackbarService, 
    private cartService:CartService,
-   private authService:AuthService){}
+   public authService:AuthService){}
 
 async ngOnInit(){
 await this.getBooks();
@@ -49,14 +49,20 @@ async getBooks() {
 }
 
 async addToCart(book:any){
-  this.cartItem = {
-  "cart": null,
-  "book": book,
-  "quantity": 1
+  if(this.authService.isLogin){
+    this.cartItem = {
+      "cart": null,
+      "book": book,
+      "quantity": 1
+      }
+      await this.cartService.AddToCart(this.cartItem, this.userID)
+      this.snackbarService.setMessage(`${book.bookName} added to cart`)
+      this.snackbarService.openSnackBar()
   }
-  await this.cartService.AddToCart(this.cartItem, this.userID)
-  this.snackbarService.setMessage(`${book.bookName} added to cart`)
-  this.snackbarService.openSnackBar()
+  else{
+    this.snackbarService.setMessage('You are not logged in')
+    this.snackbarService.openSnackBar()
+  }
 }
 
 truncateChar(text: string): string {
