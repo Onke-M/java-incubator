@@ -2,7 +2,7 @@ package com.incubator.springapi.controllers;
 
 import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.CartItem;
-import com.incubator.springapi.services.CartService;
+import com.incubator.springapi.interfaces.ICartService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,10 @@ import java.util.List;
 @RequestMapping("/cart")
 @CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST})
 public class CartController {
-    private final CartService cartService;
+    private final ICartService cartService;
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    public CartController(CartService cartService) {
+    public CartController(ICartService cartService) {
         this.cartService = cartService;
     }
 

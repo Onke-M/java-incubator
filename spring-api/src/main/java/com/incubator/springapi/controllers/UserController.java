@@ -2,8 +2,7 @@ package com.incubator.springapi.controllers;
 
 import com.incubator.springapi.entities.Role;
 import com.incubator.springapi.entities.User;
-import com.incubator.springapi.repositories.UserRepository;
-import com.incubator.springapi.services.UserService;
+import com.incubator.springapi.interfaces.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +21,11 @@ import java.util.List;
 @RequestMapping("/users")
 @CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class UserController {
-    private UserService userService;
+    private final IUserService userService;
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(IUserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }

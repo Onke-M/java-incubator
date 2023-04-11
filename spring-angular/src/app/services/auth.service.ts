@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
+import { SnackbarService } from './snackbar.service';
 
 const API_URL = environment.API_URL;
 
@@ -13,8 +14,9 @@ const API_URL = environment.API_URL;
   providedIn: 'root'
 })
 export class AuthService {
+response:any
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private snackbar:SnackbarService) { }
 
   async RegisterCustomer(registerUser:any): Promise<any> {
     console.log('API CALL')
@@ -28,17 +30,24 @@ export class AuthService {
 
     console.log('API CALL')
     let httpCall = this.httpClient.post<any>(`${API_URL}/token/login`, credentials)
-    let response = await lastValueFrom(httpCall)
-    localStorage.setItem('token', response.token)
-    return response.token;
+    await lastValueFrom(httpCall).then((res) => {
+      if(res==null){
+        this.snackbar.setMessage("Invalid login credentials, please try again")
+      }
+      else{
+        localStorage.setItem('token', res.token)
+        this.snackbar.setMessage("Login successful")
+      }
+    }).finally(()=> {
+      this.snackbar.openSnackBar()
+      this.decodeToken(localStorage.getItem('token'))
+    })
+    
   }
 
   decodeToken(token: any) {
-    try {
       var loggedInUser = jwt_decode(token)
+      console.log(loggedInUser)
       return loggedInUser;
-    } catch (Error) {
-      return null;
-    }
   }
 }

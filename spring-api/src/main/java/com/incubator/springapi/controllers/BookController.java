@@ -1,10 +1,7 @@
 package com.incubator.springapi.controllers;
 
 import com.incubator.springapi.entities.Book;
-import com.incubator.springapi.entities.User;
-import com.incubator.springapi.repositories.BookRepository;
-import com.incubator.springapi.repositories.UserRepository;
-import com.incubator.springapi.services.BookService;
+import com.incubator.springapi.interfaces.IBookService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +18,11 @@ import java.util.List;
 @RequestMapping("/books")
 @CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class BookController {
-    private BookService bookService;
+    private final IBookService bookService;
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(IBookService bookService) {
         this.bookService = bookService;
     }
 
