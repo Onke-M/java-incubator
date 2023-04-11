@@ -2,17 +2,20 @@
   <mat-toolbar color="primary">
       <span [routerLink]="['/book-catalog']">Books R Us</span>
       <span class="example-spacer"></span>
-      <button mat-icon-button aria-label="Example icon-button with menu icon" [routerLink]="['/books']">
+      <button mat-icon-button aria-label="Example icon-button with menu icon" *ngIf="this.loggedIn && this.isAdmin" [routerLink]="['/books']">
         <mat-icon class="example-icon">menu_book</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Example icon-button with menu icon" [routerLink]="['/users']">
+      <button mat-icon-button aria-label="Example icon-button with menu icon" *ngIf="this.loggedIn && this.isAdmin" [routerLink]="['/users']">
         <mat-icon class="example-icon">group</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="openCart()">
+      <button mat-icon-button aria-label="Example icon-button with menu icon" *ngIf="this.loggedIn && this.isCustomer" (click)="openCart()">
         <mat-icon class="example-icon">shopping_cart</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="logout()" [routerLink]="['/login']">
+      <button mat-icon-button aria-label="Example icon-button with menu icon" *ngIf="this.loggedIn" (click)="logout()" [routerLink]="['/login']">
         <mat-icon class="example-icon">logout</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Example icon-button with menu icon" *ngIf="!this.loggedIn" [routerLink]="['/login']">
+        <mat-icon class="example-icon">login</mat-icon>
       </button>
   </mat-toolbar>
 </p>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
@@ -15,7 +15,9 @@ const API_URL = environment.API_URL;
 })
 export class AuthService {
 response:any
-isLogin:boolean = false
+isLogin:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+isAdmin:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+isCustomer:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 role!:string
 userDetails:any
 
@@ -41,7 +43,8 @@ userDetails:any
         localStorage.setItem('token', res.token)
         this.snackbar.setMessage("Login successful")
         this.userDetails = this.decodeToken(localStorage.getItem('token'))
-        this.isLogin = true
+        this.isLogin.next(true)
+        this.getRole()
       }
     }).finally(()=> {
       this.snackbar.openSnackBar()
@@ -57,16 +60,29 @@ userDetails:any
 
   getRole(){
     this.role = this.userDetails.role
+    if(this.role == 'Admin'){
+      this.isAdmin.next(true)
+    }
+    else{
+      this.isCustomer.next(true)
+    }
     return this.role
+  }
+
+  async logout(){
+    localStorage.clear();
+    this.isLogin.next(false)
+    this.isAdmin.next(false)
+    this.isCustomer.next(false)
   }
 
   isLoggedIn(){
     if(localStorage.getItem('token')!=null){
-      this.isLogin = true;
+      this.isLogin.next(true)
       return this.isLogin
     }
     else{
-      this.isLogin = false;
+      this.isLogin.next(false)
       return this.isLogin
     }
   }

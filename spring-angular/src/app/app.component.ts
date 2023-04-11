@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { SnackbarService } from './services/snackbar.service';
-import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,21 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'spring-angular';
+  loggedIn: any;
+  isAdmin: any;
+  isCustomer: any;
 
-  constructor(public dialog: MatDialog, private snackBarService:SnackbarService, private router: Router){}
+  constructor(public dialog: MatDialog, private snackBarService:SnackbarService, public authService:AuthService){
+    this.authService.isLogin.subscribe(l => this.loggedIn = l);
+    this.authService.isAdmin.subscribe(a => this.isAdmin = a);
+    this.authService.isCustomer.subscribe(c => this.isCustomer = c);
+  }
 
   openCart(){
-    this.router.navigate(['/cart']);
+    this.dialog.open(CartPageComponent, {disableClose: true, height: '650px'});
   }
 
   logout(){
-    localStorage.clear();
+    this.authService.logout()
   }
 }
