@@ -61,6 +61,13 @@ userDetails:any
   }
 
   isLoggedIn(){
-    return this.isLogin
+    if(localStorage.getItem('token')!=null){
+      this.isLogin = true;
+      return this.isLogin
+    }
+    else{
+      this.isLogin = false;
+      return this.isLogin
+    }
   }
 }
