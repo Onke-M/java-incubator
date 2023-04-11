@@ -15,6 +15,9 @@ const API_URL = environment.API_URL;
 })
 export class AuthService {
 response:any
+isLogin:boolean = false
+role!:string
+userDetails:any
 
   constructor(private httpClient: HttpClient, private snackbar:SnackbarService) { }
 
@@ -37,10 +40,11 @@ response:any
       else{
         localStorage.setItem('token', res.token)
         this.snackbar.setMessage("Login successful")
+        this.userDetails = this.decodeToken(localStorage.getItem('token'))
+        this.isLogin = true
       }
     }).finally(()=> {
       this.snackbar.openSnackBar()
-      this.decodeToken(localStorage.getItem('token'))
     })
     
   }
@@ -49,5 +53,14 @@ response:any
       var loggedInUser = jwt_decode(token)
       console.log(loggedInUser)
       return loggedInUser;
+  }
+
+  getRole(){
+    this.role = this.userDetails.role
+    return this.role
+  }
+
+  isLoggedIn(){
+    return this.isLogin
   }
 }
