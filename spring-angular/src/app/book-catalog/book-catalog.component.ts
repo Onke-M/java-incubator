@@ -18,6 +18,8 @@ isLoading:boolean = false;
 cartItem:any = null;
 userID:number = 0;
 user:any;
+loggedIn:any;
+isCustomer: any;
 
 constructor(private httpClient: HttpClient,
    private bookCatalogService:BookCatalogService, 
@@ -28,6 +30,9 @@ constructor(private httpClient: HttpClient,
 
 async ngOnInit(){
 await this.getBooks();
+    this.authService.isCustomer.subscribe(c => this.isCustomer = c);
+    this.authService.isLogin.subscribe(l => this.loggedIn = l);
+console.log(`BOOK CATALOG: ${this.loggedIn}`);
 
 this.user = this.authService.decodeToken(localStorage.getItem('token'))
 this.userID = parseInt(this.user.jti)
@@ -51,15 +56,21 @@ async getBooks() {
 }
 
 async addToCart(book:any){
-  if(this.authService.isLogin){
-    this.cartItem = {
-      "cart": null,
-      "book": book,
-      "quantity": 1
-      }
-      await this.cartService.AddToCart(this.cartItem, this.userID)
-      this.snackbarService.setMessage(`${book.bookName} added to cart`)
-      this.snackbarService.openSnackBar()
+  if(this.loggedIn){
+    if(this.isCustomer){
+      this.cartItem = {
+        "cart": null,
+        "book": book,
+        "quantity": 1
+        }
+        await this.cartService.AddToCart(this.cartItem, this.userID)
+        this.snackbarService.setMessage(`${book.bookName} added to cart`)
+        this.snackbarService.openSnackBar()
+    }
+    else{
+      this.snackbarService.setMessage('You are not a customer')
+    this.snackbarService.openSnackBar()
+    }
   }
   else{
     this.snackbarService.setMessage('You are not logged in')

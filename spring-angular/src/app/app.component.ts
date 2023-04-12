@@ -15,10 +15,17 @@ export class AppComponent {
   isAdmin: any;
   isCustomer: any;
 
-  constructor(public dialog: MatDialog, private snackBarService:SnackbarService, public authService:AuthService){
+  constructor(public dialog: MatDialog, private snackBarService:SnackbarService, public authService:AuthService){}
+
+  ngOnInit() {
     this.authService.isLogin.subscribe(l => this.loggedIn = l);
     this.authService.isAdmin.subscribe(a => this.isAdmin = a);
     this.authService.isCustomer.subscribe(c => this.isCustomer = c);
+    this.authService.isLoggedIn()
+    this.authService.getRole()
+    console.log(this.loggedIn)
+    console.log(this.isAdmin)
+    console.log(this.isCustomer)
   }
 
   openCart(){

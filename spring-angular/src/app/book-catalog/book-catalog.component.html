@@ -5,7 +5,9 @@
               <mat-card-title><h2>{{truncateChar(book.bookName)}}</h2></mat-card-title>
               <mat-card-subtitle><h2>Version: {{book.version}}</h2></mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Photo of a Shiba Inu">
+            <div class="imgContainer">
+              <img mat-card-image src="https://i.pinimg.com/originals/b1/04/e9/b104e9d668267dc8bd8c3a3d739eb00d.jpg" alt="Photo of a Shiba Inu">
+            </div>
             <mat-card-content>
               <h2>
                 {{book.price | currency:'ZAR':"symbol-narrow"}}

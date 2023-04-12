@@ -15,6 +15,9 @@ export class LoginPageComponent {
   invalidLogin!: boolean;
   users: any = [];
   public showPass: boolean = false;
+  isAdmin: any;
+  isCustomer: any;
+  loggedIn:any;
 
   @ViewChild('password')
   public password!: ElementRef;
@@ -30,6 +33,9 @@ export class LoginPageComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+    this.authService.isLogin.subscribe(l => this.loggedIn = l);
+    this.authService.isAdmin.subscribe(a => this.isAdmin = a);
+    this.authService.isCustomer.subscribe(c => this.isCustomer = c);
   }
 
   async loginUser(loginForm: any) {
@@ -38,8 +44,13 @@ export class LoginPageComponent {
       password: loginForm.value.password
     }
     await this.authService.Login(credentials).then(() => {
-      if(localStorage.getItem('token') !=null){
-        this.router.navigate(['/book-catalog'])
+      if(this.loggedIn){
+        if(this.isCustomer){
+          this.router.navigate(['/book-catalog'])
+        }
+        else{
+          this.router.navigate(['/books'])
+        }
       }
       else{
         this.snackbar.setMessage('Invalid credentials, please try again')

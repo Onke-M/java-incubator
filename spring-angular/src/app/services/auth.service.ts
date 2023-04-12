@@ -59,25 +59,31 @@ userDetails:any
   }
 
   getRole(){
-    this.role = this.userDetails.role
-    if(this.role == 'Admin'){
-      this.isAdmin.next(true)
+    if(localStorage.getItem('token')!=''){
+      this.userDetails = this.decodeToken(localStorage.getItem('token'))
+      this.role = this.userDetails.role
+      if(this.role == 'Admin'){
+        this.isAdmin.next(true)
+      }
+      else{
+        this.isCustomer.next(true)
+      }
+      return this.role
     }
     else{
-      this.isCustomer.next(true)
+      return null;
     }
-    return this.role
   }
 
   async logout(){
-    localStorage.clear();
+    localStorage.setItem('token', '');
     this.isLogin.next(false)
     this.isAdmin.next(false)
     this.isCustomer.next(false)
   }
 
   isLoggedIn(){
-    if(localStorage.getItem('token')!=null){
+    if(localStorage.getItem('token')!=''){
       this.isLogin.next(true)
       return this.isLogin
     }

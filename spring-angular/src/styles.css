@@ -311,6 +311,16 @@ mat-dialog-container {
   padding-left: 10px;
 }
 
+img {
+  width: 70%;
+  height: 70%;
+}
+
+.imgContainer{
+  display: flex;
+  justify-content: center;
+}
+
 .mat-form-field {
   font-size: 16px;
   flex-grow: 1;
