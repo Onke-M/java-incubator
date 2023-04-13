@@ -8,6 +8,8 @@ import com.incubator.springapi.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,39 +33,35 @@ public class UserService implements IUserService {
 
         return result;
     }
-
-    public ResponseEntity<?> deleteUser(Integer userID){
+    @Transactional
+    public void deleteUser(Integer userID){
         try {
             User user = userRepository.findByUserID(userID);
             if(user!=null) {
                 userRepository.delete(user);
-                return new ResponseEntity<>(null, HttpStatus.OK);
             }
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
 
     public User getUser(Integer userID) {
-        User user = userRepository.findByUserID(userID);
-        if(user == null)
-        {
-            return null;
-        }
-        return user;
+        return userRepository.findByUserID(userID);
     }
+    @Transactional
+    public void registerUser(User newUser){
+        try{
+            newUser = userRepository.save(newUser);
+            if(Objects.equals(newUser.getRole().getRoleDesc(), "Customer")){
 
-    public User registerUser(User newUser){
-        newUser = userRepository.save(newUser);
-        if(Objects.equals(newUser.getRole().getRoleDesc(), "Customer")){
-
-            Cart cart = new Cart();
-            cart.setUser(newUser);
-            cartRepository.save(cart);
-
-            return newUser;
+                Cart cart = new Cart();
+                cart.setUser(newUser);
+                cartRepository.save(cart);
+            }
         }
-        return newUser;
+        catch(Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
     }
 }

@@ -1,13 +1,13 @@
 package com.incubator.springapi.services;
 
 import com.incubator.springapi.entities.Book;
-import com.incubator.springapi.entities.Cart;
-import com.incubator.springapi.entities.User;
 import com.incubator.springapi.interfaces.IBookService;
 import com.incubator.springapi.repositories.BookRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,46 +28,40 @@ public class BookService implements IBookService {
 
         return result;
     }
-
-    public Book createNewBook(Book newBook){
+    @Transactional
+    public void createNewBook(Book newBook){
         try {
             newBook = bookRepository.save(newBook);
-            return newBook;
-
         } catch (Exception e) {
-            return null;
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
-
-    public ResponseEntity<?> deleteBook(Integer bookID){
+    @Transactional
+    public void deleteBook(Integer bookID){
         try {
             Book existingBook = bookRepository.findByBookID(bookID);
             if(existingBook!=null) {
                 bookRepository.delete(existingBook);
-                return new ResponseEntity<>(null, HttpStatus.OK);
             }
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
-
-    public Book updateBookQuantity(Book book, Integer quantitySold){
+    @Transactional
+    public void updateBookQuantity(Book book, Integer quantitySold){
         try{
             Book existingBook = bookRepository.findByBookID(book.getBookID());
             if(existingBook!=null)
             {
                 existingBook.setAvailableQuantity(existingBook.getAvailableQuantity() - quantitySold);
                 bookRepository.save(existingBook);
-                return existingBook;
             }
-            return null;
         } catch (Exception e){
-            return null;
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
-
-    public ResponseEntity<?> updateBook(Book book){
+    @Transactional
+    public void updateBook(Book book){
         try{
             Book existingBook = bookRepository.findByBookID(book.getBookID());
             if(existingBook!=null)
@@ -78,12 +72,9 @@ public class BookService implements IBookService {
                 existingBook.setPrice(book.getPrice());
                 existingBook.setPublicationDate(book.getPublicationDate());
                 bookRepository.save(existingBook);
-                return new ResponseEntity<>(existingBook, HttpStatus.OK);
             }
-
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } catch (Exception e){
-            return new ResponseEntity<>(e, HttpStatus.NOT_MODIFIED);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
 }

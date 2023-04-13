@@ -35,27 +35,33 @@ public class CartController {
         }
 
         LOGGER.info("No cart items could be found");
-        return ResponseEntity.notFound().build();
+       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
     public ResponseEntity<?> addToCart(@RequestBody CartItem cartItem, @RequestParam Integer userID) {
-        LOGGER.info("Adding book={} to cart", cartItem);
-
-        final CartItem newCartItem = cartService.addToCart(cartItem, userID);
-
-        LOGGER.trace("Book Added To Cart");
-        return new ResponseEntity<>(newCartItem, HttpStatus.CREATED);
+        try{
+            LOGGER.info("Adding book={} to cart", cartItem);
+            cartService.addToCart(cartItem, userID);
+            LOGGER.trace("Book Added To Cart");
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @PostMapping
     @RequestMapping("/orderBook")
     public ResponseEntity<?> orderBook(@RequestBody CartItem cartItem) {
-        LOGGER.info("Adding book={} to order", cartItem);
-
-        final Book orderedBook = cartService.orderBook(cartItem);
-
-        LOGGER.trace("Book Added To Order");
-        return new ResponseEntity<>(orderedBook, HttpStatus.CREATED);
+        try{
+            LOGGER.info("Adding book={} to order", cartItem);
+            cartService.orderBook(cartItem);
+            LOGGER.trace("Book Added To Order");
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 }

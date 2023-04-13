@@ -41,7 +41,7 @@ public class UserController {
         }
 
         LOGGER.info("No users could be found");
-        return ResponseEntity.notFound().build();
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/registerCustomer")

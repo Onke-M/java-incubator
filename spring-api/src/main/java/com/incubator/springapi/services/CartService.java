@@ -1,6 +1,5 @@
 package com.incubator.springapi.services;
 
-import com.incubator.springapi.entities.Book;
 import com.incubator.springapi.entities.Cart;
 import com.incubator.springapi.entities.CartItem;
 import com.incubator.springapi.entities.User;
@@ -8,6 +7,8 @@ import com.incubator.springapi.interfaces.ICartService;
 import com.incubator.springapi.repositories.CartItemRepository;
 import com.incubator.springapi.repositories.CartRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,33 +49,37 @@ public class CartService implements ICartService {
         }
         return null;
     }
-
-    public CartItem addToCart(CartItem cartItem, Integer userID){
-        User user = userService.getUser(userID);
-        if(user!=null)
-        {
-            Cart userCart = cartRepository.findByUser(user);
-            if(userCart!=null)
+    @Transactional
+    public void addToCart(CartItem cartItem, Integer userID){
+        try{
+            User user = userService.getUser(userID);
+            if(user!=null)
             {
-                cartItem.setCart(userCart);
-                cartItemRepository.save(cartItem);
-
-                return cartItem;
+                Cart userCart = cartRepository.findByUser(user);
+                if(userCart!=null)
+                {
+                    cartItem.setCart(userCart);
+                    cartItemRepository.save(cartItem);
+                }
             }
         }
-
-        return null;
+        catch(Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
     }
 
 
-
-    public Book orderBook(CartItem cartItem){
-        CartItem existingStock = cartItemRepository.findByCartItemID(cartItem.getCartItemID());
-        if(existingStock!=null){
-            Book orderedBook = bookService.updateBookQuantity(cartItem.getBook(), cartItem.getQuantity());
-            cartItemRepository.delete(cartItem);
-            return orderedBook;
+    @Transactional
+    public void orderBook(CartItem cartItem){
+        try{
+            CartItem existingStock = cartItemRepository.findByCartItemID(cartItem.getCartItemID());
+            if(existingStock!=null){
+                bookService.updateBookQuantity(cartItem.getBook(), cartItem.getQuantity());
+                cartItemRepository.delete(cartItem);
+            }
         }
-        return null;
+        catch(Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
     }
 }
