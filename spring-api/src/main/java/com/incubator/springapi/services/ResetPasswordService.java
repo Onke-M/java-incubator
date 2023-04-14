@@ -19,9 +19,10 @@ public class ResetPasswordService implements IResetPasswordService {
         this.userService = userService;
     }
 
-    public void generateOTP() {
+    public String generateOTP() {
         Random random = new Random();
         otp = String.format("%04d", random.nextInt(10000));
+        return otp;
     }
 
     public void sendOTP(String email){

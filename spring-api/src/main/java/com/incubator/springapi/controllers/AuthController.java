@@ -75,9 +75,9 @@ public class AuthController {
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
-    @PostMapping()
+    @PutMapping()
     @RequestMapping("/resetPassword")
-    public ResponseEntity<?> ResetPassword(@RequestParam String password){
+    public ResponseEntity<?> ResetPassword(@RequestBody String password){
         try {
             resetPasswordService.resetPassword(password);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -86,19 +86,19 @@ public class AuthController {
         }
     }
 
-    @PostMapping()
+    @GetMapping()
     @RequestMapping("/getOTP")
     public ResponseEntity<?> GetOTP(@RequestParam String email){
         try {
-            resetPasswordService.generateOTP();
+            String otp = resetPasswordService.generateOTP();
             resetPasswordService.sendOTP(email);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(otp, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping()
+    @GetMapping()
     @RequestMapping("/compareOTP")
     public ResponseEntity<?> CompareOTP(@RequestParam String otp){
         try {

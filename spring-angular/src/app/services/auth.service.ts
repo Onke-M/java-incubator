@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
 import { SnackbarService } from './snackbar.service';
+import { Router } from '@angular/router';
 
 const API_URL = environment.API_URL;
 
@@ -20,13 +21,36 @@ isAdmin:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 isCustomer:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 role!:string
 userDetails:any
+otp!:string
 
-  constructor(private httpClient: HttpClient, private snackbar:SnackbarService) { }
+  constructor(private httpClient: HttpClient, private snackbar:SnackbarService, private router: Router) { }
 
   async RegisterCustomer(registerUser:any): Promise<any> {
     console.log('API CALL')
     let httpCall = this.httpClient.post(`${API_URL}/users/registerCustomer`, registerUser)
     let response = await lastValueFrom(httpCall)
+    return response
+  }
+
+  async getOTP(userEmail:string){
+    let httpCall = this.httpClient.get<any>(`${API_URL}/token/getOTP?email=${userEmail}`)
+    let response = await lastValueFrom(httpCall)
+    this.otp = response;
+    return response
+  }
+
+  async compareOTP(inputOtp:string){
+    console.log(this.otp)
+    console.log(inputOtp)
+    let httpCall = this.httpClient.get<any>(`${API_URL}/token/compareOTP?otp=${inputOtp}`)
+    let response = await lastValueFrom(httpCall)
+    if(inputOtp == this.otp){
+      this.router.navigate(['/reset-password']);
+    }
+    else{
+      this.snackbar.setMessage("Invalid OTP, please try again")
+      this.snackbar.openSnackBar()
+    }
     return response
   }
 
@@ -50,6 +74,14 @@ userDetails:any
       this.snackbar.openSnackBar()
     })
     
+  }
+
+  async resetPassword(password:string){
+    let httpCall = this.httpClient.patch<any>(`${API_URL}/token/resetPassword`, password)
+    await lastValueFrom(httpCall).then((res) => {
+        this.snackbar.setMessage("Password has been reset")
+        this.snackbar.openSnackBar()
+    })
   }
 
   decodeToken(token: any) {

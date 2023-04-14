@@ -19,6 +19,9 @@ import { AddBookComponent } from './books-crud/add-book/add-book.component';
 import { ViewBooksComponent } from './books-crud/view-books/view-books.component';
 import { ViewUsersComponent } from './users-crud/view-users/view-users.component';
 import { AddUserComponent } from './users-crud/add-user/add-user.component';
+import { GetOTPComponent } from './get-otp/get-otp.component';
+import { CompareOTPComponent } from './compare-otp/compare-otp.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { AddUserComponent } from './users-crud/add-user/add-user.component';
     AddBookComponent,
     ViewBooksComponent,
     ViewUsersComponent,
-    AddUserComponent
+    AddUserComponent,
+    GetOTPComponent,
+    CompareOTPComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
