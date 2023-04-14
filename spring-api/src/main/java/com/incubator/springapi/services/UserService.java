@@ -45,9 +45,14 @@ public class UserService implements IUserService {
         }
     }
 
-    public User getUser(Integer userID) {
+    public User getUserByID(Integer userID) {
         return userRepository.findByUserID(userID);
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
     @Transactional
     public void registerUser(User newUser){
         try{
@@ -63,5 +68,18 @@ public class UserService implements IUserService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
 
+    }
+    @Transactional
+    public void resetPassword(String email, String newPassword) {
+        try{
+            User user = getUserByEmail(email);
+            if(user!=null){
+                user.setPassword(newPassword);
+                userRepository.save(user);
+            }
+        }
+        catch(Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
     }
 }

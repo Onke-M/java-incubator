@@ -37,7 +37,7 @@ public class CartService implements ICartService {
     }
 
     public List<CartItem> getUserCart(Integer userID) {
-        User user = userService.getUser(userID);
+        User user = userService.getUserByID(userID);
         if(user!=null)
         {
             Cart userCart = cartRepository.findByUser(user);
@@ -52,7 +52,7 @@ public class CartService implements ICartService {
     @Transactional
     public void addToCart(CartItem cartItem, Integer userID){
         try{
-            User user = userService.getUser(userID);
+            User user = userService.getUserByID(userID);
             if(user!=null)
             {
                 Cart userCart = cartRepository.findByUser(user);

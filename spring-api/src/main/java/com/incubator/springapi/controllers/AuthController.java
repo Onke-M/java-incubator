@@ -2,7 +2,8 @@ package com.incubator.springapi.controllers;
 
 import com.incubator.springapi.entities.LoginDTO;
 import com.incubator.springapi.entities.User;
-import com.incubator.springapi.repositories.UserRepository;
+import com.incubator.springapi.interfaces.IResetPasswordService;
+import com.incubator.springapi.interfaces.IUserService;
 import com.incubator.springapi.services.MyUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -39,12 +40,14 @@ public class AuthController {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 
-    private final UserRepository userRepository;
+    private final IUserService userService;
+    private final IResetPasswordService resetPasswordService;
     @Autowired
-    public AuthController(JwtEncoder jwtEncoder, MyUserDetailsService myUserDetailsService, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public AuthController(JwtEncoder jwtEncoder, MyUserDetailsService myUserDetailsService, PasswordEncoder passwordEncoder, IUserService userService, IResetPasswordService resetPasswordService) {
         this.jwtEncoder = jwtEncoder;
         this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
+        this.userService = userService;
+        this.resetPasswordService = resetPasswordService;
     }
 
     @GetMapping()
@@ -73,9 +76,47 @@ public class AuthController {
     }
 
     @PostMapping()
+    @RequestMapping("/resetPassword")
+    public ResponseEntity<?> ResetPassword(@RequestParam String password){
+        try {
+            resetPasswordService.resetPassword(password);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping()
+    @RequestMapping("/getOTP")
+    public ResponseEntity<?> GetOTP(@RequestParam String email){
+        try {
+            resetPasswordService.generateOTP();
+            resetPasswordService.sendOTP(email);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping()
+    @RequestMapping("/compareOTP")
+    public ResponseEntity<?> CompareOTP(@RequestParam String otp){
+        try {
+            if(resetPasswordService.compareOTP(otp)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping()
     @RequestMapping("/login")
     public ResponseEntity<?> Login(@RequestBody LoginDTO loginDTO) {
-        User user = userRepository.findUserByEmail(loginDTO.getUsername());
+        User user = userService.getUserByEmail(loginDTO.getUsername());
         if(user!=null){
         LOGGER.info("User Exists");
 
