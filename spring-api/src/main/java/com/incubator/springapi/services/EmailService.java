@@ -17,7 +17,7 @@ public class EmailService implements IEmailService {
     public void sendEmail(String to, String subject, String body) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("onkemweza1@gmail.com");
+            message.setFrom("user");
             message.setTo(to);
             message.setSubject(subject);
             message.setText(body);
