@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/token")
-@CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins ={"http://localhost:4200"}, methods={RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class AuthController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);

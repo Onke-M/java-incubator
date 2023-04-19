@@ -77,7 +77,7 @@ otp!:string
   }
 
   async resetPassword(password:string){
-    let httpCall = this.httpClient.patch<any>(`${API_URL}/token/resetPassword`, password)
+    let httpCall = this.httpClient.put<any>(`${API_URL}/token/resetPassword`, password)
     await lastValueFrom(httpCall).then((res) => {
         this.snackbar.setMessage("Password has been reset")
         this.snackbar.openSnackBar()

@@ -32,7 +32,7 @@ export class ResetPasswordComponent {
   }
 
   async resetPassword(resetForm: any) {
-    await this.authService.Login(resetForm.value.password).then(() => {
+    await this.authService.resetPassword(resetForm.value.password).then(() => {
           this.snackbar.setMessage('Password has been changed')
           this.snackbar.openSnackBar()
           this.router.navigate(['/login'])
